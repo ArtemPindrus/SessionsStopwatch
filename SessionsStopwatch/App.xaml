@@ -13,5 +13,8 @@
             <Setter Property="Height" Value="17"/>
             <Setter Property="Margin" Value="3,0"/>
         </Style>
+        <Brush x:Key="AppMeatBrush">#BFF6C3</Brush>
+        <Brush x:Key="ButtonBrush">#B0EBB4</Brush>
+        <Brush x:Key="HeaderBrush">#ACE1AF</Brush>
     </Application.Resources>
 </Application>

@@ -1,6 +1,5 @@
 ﻿using SessionsStopwatch.Utilities;
 using System.Windows;
-using System.Windows.Forms;
 
 namespace SessionsStopwatch {
     /// <summary>

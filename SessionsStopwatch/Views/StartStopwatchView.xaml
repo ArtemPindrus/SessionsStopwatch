@@ -7,10 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="{StaticResource MeatHeight}" 
              d:DesignWidth="{StaticResource MWWidth}">
-    <Grid>
+    <Viewbox>
             <Button Style="{StaticResource MeatButton}"
                     Command="{Binding StartStopwatchCommand}">
                 <Image Source="/Icons/Play.ico"/>
             </Button>
-    </Grid>
+    </Viewbox>
 </UserControl>

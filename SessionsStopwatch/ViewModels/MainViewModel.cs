@@ -48,6 +48,7 @@ namespace SessionsStopwatch.ViewModels
         public ICommand ToTrayCommand { get; }
         public ICommand CloseCommand { get; }
         public ICommand ReturnToCornerCommand { get; }
+        public ICommand OpenSettingsCommand { get; }
 
         public MainViewModel(NavigationStore navigationStore) {
             _navigationStore = navigationStore;
@@ -57,6 +58,7 @@ namespace SessionsStopwatch.ViewModels
             ToTrayCommand = new ToTrayCommand(this);
             CloseCommand = new CloseCommand();
             ReturnToCornerCommand = new ReturnToCornerCommand(this);
+            OpenSettingsCommand = new OpenSettingsCommand();
         }
 
         private void CurrentViewModelChanged() => NotifyPropertyChanged(nameof(CurrentViewModel));

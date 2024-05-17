@@ -7,16 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="{StaticResource MeatHeight}" 
              d:DesignWidth="{StaticResource MWWidth}">
-    <Grid>
-        <TextBlock  VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="15"
-                    Text="{Binding ElapsedTime, Mode=OneWay}"/>
-        <Button HorizontalAlignment="Left"
-                Style="{StaticResource MeatButton}"
-                ToolTip="Restart Stopwatch"
-                Command="{Binding RestartStopwatchCommand}">
-            <Image Source="\Icons\Reset.png"/>
-        </Button>
-    </Grid>
+    <Viewbox>
+        <StackPanel Orientation="Horizontal" Margin="1">
+            <Button HorizontalAlignment="Left"
+                    Style="{StaticResource MeatButton}"
+                    ToolTip="Restart Stopwatch"
+                    Command="{Binding RestartStopwatchCommand}">
+                <Image Source="\Icons\Reset.png"/>
+            </Button>
+            
+            <TextBlock  VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Text="{Binding ElapsedTime, Mode=OneWay}"/>
+        </StackPanel>
+    </Viewbox>
 </UserControl>

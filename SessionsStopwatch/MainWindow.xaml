@@ -15,7 +15,7 @@
         AllowsTransparency="True"
         ResizeMode="NoResize"
         Topmost="True"
-        Background="#BFF6C3"
+        Background="{StaticResource ResourceKey=AppMeatBrush}"
         ShowInTaskbar="False"
         WindowState="Normal"
         Visibility="{Binding WindowVisibility, Mode=TwoWay}"
@@ -23,7 +23,7 @@
         LocationChanged="Window_LocationChanged">
     <Window.Resources>
         <Style TargetType="Button" x:Key="HeaderButton">
-            <Setter Property="Background" Value="#B0EBB4"/>
+            <Setter Property="Background" Value="{StaticResource ButtonBrush}"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Black"/>
@@ -61,9 +61,13 @@
         </tb:TaskbarIcon>
         
         <!--Header-->
-        <Border Background="#ACE1AF">
+        <Border Background="{StaticResource HeaderBrush}">
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
+                <Button Content="S"
+                        Style="{StaticResource HeaderButton}"
+                        ToolTip="Settings"
+                        Command="{Binding OpenSettingsCommand}"/>
                 <Button Content="-" 
                         ToolTip="Minimize"
                         Style="{StaticResource HeaderButton}"
