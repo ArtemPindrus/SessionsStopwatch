@@ -1,4 +1,6 @@
-﻿namespace SessionsStopwatch.ViewModels {
+﻿using Microsoft.Win32;
+
+namespace SessionsStopwatch.ViewModels {
     public class AppSettingsVM : ViewModelBase {
         public bool AutoStartOnSession {
             get => AppSettings.Default.AutoStartOnSession;
@@ -18,6 +20,24 @@
                     AppSettings.Default.LimitToMonitor = value;
                     AppSettings.Default.Save();
                     NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool Startup { 
+            get => AppSettings.Default.Startup;
+            set {
+                if (AppSettings.Default.Startup != value) {
+                    AppSettings.Default.Startup = value;
+                    AppSettings.Default.Save();
+                    NotifyPropertyChanged();
+
+                    var keyPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+                    string appPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                    RegistryKey? key = Registry.CurrentUser.OpenSubKey(keyPath, true);
+
+                    if (value == true) key?.SetValue("SessionStopwatch", appPath);
+                    else key?.DeleteValue("SessionStopwatch", true);
                 }
             }
         }

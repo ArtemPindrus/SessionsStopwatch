@@ -18,6 +18,11 @@
                       IsChecked="{Binding LimitToMonitorBounds, Mode=TwoWay}"
                       Background="{StaticResource ButtonBrush}"
                       />
+            <CheckBox Content="Startup."
+                      ToolTip="Launch app on system startup."
+                      IsChecked="{Binding Startup, Mode=TwoWay}"
+                      Background="{StaticResource ButtonBrush}"
+                      />
         </StackPanel>
     </Grid>
 </UserControl>
