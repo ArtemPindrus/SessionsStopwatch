@@ -1,0 +1,79 @@
+﻿<Window x:Class="SessionsStopwatch.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:views="clr-namespace:SessionsStopwatch.Views"
+        xmlns:vms="clr-namespace:SessionsStopwatch.ViewModels"
+        xmlns:local="clr-namespace:SessionsStopwatch"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="40" Width="100"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        Topmost="True"
+        Background="#BFF6C3"
+        ShowInTaskbar="False"
+        WindowState="Normal"
+        Visibility="{Binding WindowVisibility, Mode=TwoWay}"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="HeaderButton">
+            <Setter Property="Background" Value="#B0EBB4"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontSize" Value="5"/>
+            <Setter Property="FontWeight" Value="Black"/>
+            <Setter Property="Width" Value="10"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:StopwatchViewModel}">
+                <views:StopwatchView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:StartStopwatchVM}">
+                <views:StartStopwatchView/>
+            </DataTemplate>
+        </Grid.Resources>
+        
+        <!--TrayIcon-->
+        <tb:TaskbarIcon MenuActivation="RightClick" 
+                LeftClickCommand="{Binding OutOfTrayCommand}"
+                NoLeftClickDelay="True"
+                IconSource="\Icons\Play.ico">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Close" Command="{Binding CloseCommand}"/>
+                    <MenuItem Header="Return to right-bottom corner" 
+                              Command="{Binding ReturnToCornerCommand}"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+        
+        <!--Header-->
+        <Border Background="#ACE1AF">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Content="-" 
+                        ToolTip="Minimize"
+                        Style="{StaticResource HeaderButton}"
+                        Command="{Binding ToTrayCommand}"/>
+                <Button Content="X" 
+                        ToolTip="Close"
+                        Style="{StaticResource HeaderButton}"
+                        Command="{Binding CloseCommand}"/>
+            </StackPanel>
+        </Border>
+        
+        <!--Meat-->
+        <ContentControl Grid.Row="2" 
+                        Content="{Binding CurrentViewModel}"/>
+    </Grid>
+</Window>
