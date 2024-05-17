@@ -11,29 +11,42 @@ namespace SessionsStopwatch {
         private readonly NavigationStore _navigationStore = new();
 
         protected override void OnStartup(StartupEventArgs e) {
-            AppStopwatch.Stop();
+            if (AppSettings.Default.AutoStartOnSession) AppStopwatch.Restart();
+            else AppStopwatch.Stop();
 
-            _navigationStore.CurrentViewModel = new StartStopwatchVM(_navigationStore);
+            _navigationStore.CurrentViewModel = AppSettings.Default.AutoStartOnSession ? 
+                new StopwatchViewModel() : new StartStopwatchVM(_navigationStore);
 
-            MainWindow = new MainWindow() {
-                DataContext = new MainViewModel(_navigationStore),
-            };
+            InstantiateMainWindow();
 
-            MainWindow.Show();
-
-            SystemEvents.PowerModeChanged += OnPowerModeChanged;
+            SystemEvents.SessionSwitch += OnSessionSwitch;
 
             base.OnStartup(e);
         }
 
-        private void OnPowerModeChanged(object sender, PowerModeChangedEventArgs e) {
-            if (e.Mode == PowerModes.Suspend) {
+        private void InstantiateMainWindow() {
+            MainWindow mainWindow = new();
+            MainViewModel mainVM = new(_navigationStore);
+            mainWindow.MouseEnter += mainVM.OnMouseEnter;
+            mainWindow.MouseLeave += mainVM.OnMouseLeave;
+
+            mainWindow.DataContext = mainVM;
+
+            MainWindow = mainWindow;
+
+            MainWindow.Show();
+        }
+
+        private void OnSessionSwitch(object sender, SessionSwitchEventArgs e) {
+            if (e.Reason == SessionSwitchReason.SessionLock) {
                 AppStopwatch.Stop();
-                _navigationStore.CurrentViewModel = new StartStopwatchVM(_navigationStore);
+
 
                 MainWindow.Visibility = Visibility.Visible;
-            } else if (e.Mode == PowerModes.Resume) {
-                AppStopwatch.Restart();
+            } else if (e.Reason == SessionSwitchReason.SessionUnlock) {
+                bool autoStart = AppSettings.Default.AutoStartOnSession;
+                if (autoStart) AppStopwatch.Restart();
+                _navigationStore.CurrentViewModel = autoStart ? new StopwatchViewModel() : new StartStopwatchVM(_navigationStore);
             }
         }
     }

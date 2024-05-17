@@ -1,5 +1,7 @@
 ﻿using SessionsStopwatch.Commands;
+using SessionsStopwatch.Utilities;
 using System.Windows;
+using System.Windows.Input;
 
 namespace SessionsStopwatch.ViewModels
 {
@@ -8,6 +10,28 @@ namespace SessionsStopwatch.ViewModels
         private readonly NavigationStore _navigationStore;
 
         private Visibility _windowVisibility = Visibility.Visible;
+        private double _headerGridRowHeight = 0;
+        private double _windowHeight = SizingConst.WindowHeightNoHeader;
+
+        public double WindowHeight {
+            get => _windowHeight;
+            set {
+                if (_windowHeight != value) {
+                    _windowHeight = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public double HeaderGridRowHeight {
+            get => _headerGridRowHeight;
+            set {
+                if (_headerGridRowHeight != value) {
+                    _headerGridRowHeight = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public ViewModelBase? CurrentViewModel => _navigationStore.CurrentViewModel;
         public Visibility WindowVisibility { 
@@ -20,21 +44,37 @@ namespace SessionsStopwatch.ViewModels
             }
         }
 
-        public OutOfTrayCommand OutOfTrayCommand { get; }
-        public ToTrayCommand ToTrayCommand { get; }
-        public CloseCommand CloseCommand { get; }
-        public ReturnToCornerCommand ReturnToCornerCommand { get; }
+        public ICommand OutOfTrayCommand { get; }
+        public ICommand ToTrayCommand { get; }
+        public ICommand CloseCommand { get; }
+        public ICommand ReturnToCornerCommand { get; }
 
         public MainViewModel(NavigationStore navigationStore) {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += CurrentViewModelChanged;
 
-            OutOfTrayCommand = new(this);
-            ToTrayCommand = new(this);
-            CloseCommand = new();
-            ReturnToCornerCommand = new(this);
+            OutOfTrayCommand = new OutOfTrayCommand(this);
+            ToTrayCommand = new ToTrayCommand(this);
+            CloseCommand = new CloseCommand();
+            ReturnToCornerCommand = new ReturnToCornerCommand(this);
         }
 
         private void CurrentViewModelChanged() => NotifyPropertyChanged(nameof(CurrentViewModel));
+
+        public void HideHeader() {
+            WindowHeight = SizingConst.WindowHeightNoHeader;
+            HeaderGridRowHeight = 0;
+            Application.Current.MainWindow.Top += SizingConst.HeaderHeight;
+        }
+
+        public void ShowHeader() {
+            WindowHeight = SizingConst.WindowHeightWithHeader;
+            HeaderGridRowHeight = SizingConst.HeaderHeight;
+            Application.Current.MainWindow.Top -= SizingConst.HeaderHeight;
+        }
+
+        public void OnMouseEnter(object? sender, MouseEventArgs e) => ShowHeader();
+        public void OnMouseLeave(object? sender, MouseEventArgs e) => HideHeader();
+
     }
 }
