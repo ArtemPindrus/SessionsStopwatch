@@ -76,7 +76,8 @@ namespace SessionsStopwatch.ViewModels
         }
 
         public void OnMouseEnter(object? sender, MouseEventArgs e) => ShowHeader();
-        public void OnMouseLeave(object? sender, MouseEventArgs e) => HideHeader();
-
+        public void OnMouseLeave(object? sender, MouseEventArgs e) {
+            if (Application.Current.MainWindow != null) HideHeader();
+        }
     }
 }
