@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Brush x:Key="AppMeatBrush">#BFF6C3</Brush>
+    <Brush x:Key="ButtonBrush">#B0EBB4</Brush>
+    <Brush x:Key="HeaderBrush">#ACE1AF</Brush>
+    
+</ResourceDictionary>

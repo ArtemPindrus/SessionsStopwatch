@@ -22,13 +22,7 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         LocationChanged="Window_LocationChanged">
     <Window.Resources>
-        <Style TargetType="Button" x:Key="HeaderButton">
-            <Setter Property="Background" Value="{StaticResource ButtonBrush}"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontWeight" Value="Black"/>
-            <Setter Property="Width" Value="20"/>
-        </Style>
+        
     </Window.Resources>
     
     <Grid>

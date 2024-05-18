@@ -12,7 +12,7 @@ namespace SessionsStopwatch.Commands {
             SettingsWindow settingsWindow = new();
             settingsWindow.Show();
 
-            settingsWindow.DataContext = new AppSettingsVM();
+            settingsWindow.DataContext = new AppSettingsVM(settingsWindow);
         }
     }
 }

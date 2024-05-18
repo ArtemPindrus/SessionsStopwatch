@@ -56,7 +56,7 @@ namespace SessionsStopwatch.ViewModels
 
             OutOfTrayCommand = new OutOfTrayCommand(this);
             ToTrayCommand = new ToTrayCommand(this);
-            CloseCommand = new CloseCommand();
+            CloseCommand = new CloseWindowCommand(Application.Current.MainWindow);
             ReturnToCornerCommand = new ReturnToCornerCommand(this);
             OpenSettingsCommand = new OpenSettingsCommand();
         }

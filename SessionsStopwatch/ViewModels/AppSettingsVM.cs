@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.Windows.Input;
 
 namespace SessionsStopwatch.ViewModels {
     public class AppSettingsVM : ViewModelBase {
@@ -40,6 +41,12 @@ namespace SessionsStopwatch.ViewModels {
                     else key?.DeleteValue("SessionStopwatch", true);
                 }
             }
+        }
+
+        public ICommand CloseCommand { get; }
+
+        public AppSettingsVM(SettingsWindow associatedWindow) {
+            CloseCommand = new CloseWindowCommand(associatedWindow);
         }
     }
 }

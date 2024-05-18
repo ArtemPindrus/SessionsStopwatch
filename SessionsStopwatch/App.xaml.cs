@@ -21,8 +21,6 @@ namespace SessionsStopwatch {
 
             SystemEvents.SessionSwitch += OnSessionSwitch;
 
-            
-
             base.OnStartup(e);
         }
 

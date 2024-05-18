@@ -4,17 +4,11 @@
              xmlns:local="clr-namespace:SessionsStopwatch"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <Application.Resources>
-        <sys:Double x:Key="MeatHeight">30</sys:Double>
-        <sys:Double x:Key="MWWidth">100</sys:Double>
-        <Style x:Key="MeatButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Width" Value="17"/>
-            <Setter Property="Height" Value="17"/>
-            <Setter Property="Margin" Value="3,0"/>
-        </Style>
-        <Brush x:Key="AppMeatBrush">#BFF6C3</Brush>
-        <Brush x:Key="ButtonBrush">#B0EBB4</Brush>
-        <Brush x:Key="HeaderBrush">#ACE1AF</Brush>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles.xaml"/>
+                <ResourceDictionary Source="/Resources/Brushes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
