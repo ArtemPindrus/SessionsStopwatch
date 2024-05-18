@@ -8,7 +8,7 @@
     xmlns:views="clr-namespace:SessionsStopwatch.Views"
     Title="SettingsWindow"
     Width="250"
-    Height="100"
+    Height="300"
     AllowsTransparency="True"
     Background="{StaticResource AppMeatBrush}"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
@@ -32,7 +32,7 @@
                 Style="{StaticResource HeaderButton}" />
         </StackPanel>
 
-        <Viewbox Grid.Row="1" MaxHeight="100">
+        <Viewbox Grid.Row="1" Margin="3">
             <views:AppSettingsView />
         </Viewbox>
     </Grid>

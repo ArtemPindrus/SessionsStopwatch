@@ -24,6 +24,12 @@ namespace SessionsStopwatch {
             base.OnStartup(e);
         }
 
+        protected override void OnExit(ExitEventArgs e) {
+            AppStopwatch.SerializeReminders();
+
+            base.OnExit(e);
+        }
+
         private void InstantiateMainWindow() {
             MainWindow mainWindow = new();
             MainViewModel mainVM = new(_navigationStore);

@@ -1,28 +1,68 @@
-﻿<UserControl x:Class="SessionsStopwatch.Views.AppSettingsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SessionsStopwatch.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="90" d:DesignWidth="250">
+﻿<UserControl
+    x:Class="SessionsStopwatch.Views.AppSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SessionsStopwatch.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:util="clr-namespace:SessionsStopwatch.Utilities"
+    d:DesignHeight="200"
+    d:DesignWidth="250"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ObjectDataProvider
+            x:Key="ReminderBehaviorEnum"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="util:ReminderBehavior" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+
     <Grid>
         <StackPanel>
-            <CheckBox Content="Start stopwatch on session start."
-                      ToolTip="Automatically starts stopwatch when user logs in. Otherwise user needs to press start button."
-                      IsChecked="{Binding AutoStartOnSession, Mode=TwoWay}"
-                      Background="{StaticResource ButtonBrush}"
-                      />
-            <CheckBox Content="Limit to monitor bounds."
-                      ToolTip="When dragging the window do you want it to be within monitor bounds?"
-                      IsChecked="{Binding LimitToMonitorBounds, Mode=TwoWay}"
-                      Background="{StaticResource ButtonBrush}"
-                      />
-            <CheckBox Content="Startup."
-                      ToolTip="Launch app on system startup."
-                      IsChecked="{Binding Startup, Mode=TwoWay}"
-                      Background="{StaticResource ButtonBrush}"
-                      />
+            <CheckBox
+                Background="{StaticResource ButtonBrush}"
+                Content="Start stopwatch on session start."
+                IsChecked="{Binding AutoStartOnSession, Mode=TwoWay}"
+                ToolTip="Automatically starts stopwatch when user logs in. Otherwise user needs to press start button." />
+            <CheckBox
+                Background="{StaticResource ButtonBrush}"
+                Content="Limit to monitor bounds."
+                IsChecked="{Binding LimitToMonitorBounds, Mode=TwoWay}"
+                ToolTip="When dragging the window do you want it to be within monitor bounds?" />
+            <CheckBox
+                Background="{StaticResource ButtonBrush}"
+                Content="Startup."
+                IsChecked="{Binding Startup, Mode=TwoWay}"
+                ToolTip="Launch app on system startup." />
+
+
+            <Border Margin="10" />
+
+
+            <TextBlock FontWeight="Bold" Text="Reminders:" />
+
+            <DataGrid
+                Grid.Row="1"
+                MinHeight="100"
+                AutoGenerateColumns="False"
+                CanUserAddRows="True"
+                CanUserResizeColumns="False"
+                CanUserResizeRows="False"
+                ItemsSource="{x:Static util:AppStopwatch.Reminders}"
+                SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding StringyTime}" Header="Time" />
+                    <DataGridComboBoxColumn
+                        Header="Behavior"
+                        ItemsSource="{Binding Source={StaticResource ReminderBehaviorEnum}}"
+                        SelectedItemBinding="{Binding Behavior}" />
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
     </Grid>
 </UserControl>
