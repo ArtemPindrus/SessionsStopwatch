@@ -10,28 +10,6 @@ namespace SessionsStopwatch.ViewModels
         private readonly NavigationStore _navigationStore;
 
         private Visibility _windowVisibility = Visibility.Visible;
-        private double _headerGridRowHeight = 0;
-        private double _windowHeight = SizingConst.WindowHeightNoHeader;
-
-        public double WindowHeight {
-            get => _windowHeight;
-            set {
-                if (_windowHeight != value) {
-                    _windowHeight = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        public double HeaderGridRowHeight {
-            get => _headerGridRowHeight;
-            set {
-                if (_headerGridRowHeight != value) {
-                    _headerGridRowHeight = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
 
         public ViewModelBase? CurrentViewModel => _navigationStore.CurrentViewModel;
         public Visibility WindowVisibility { 
@@ -54,30 +32,13 @@ namespace SessionsStopwatch.ViewModels
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += CurrentViewModelChanged;
 
-            OutOfTrayCommand = new OutOfTrayCommand(this);
-            ToTrayCommand = new ToTrayCommand(this);
+            OutOfTrayCommand = new TraySwitchCommand(this, false);
+            ToTrayCommand = new TraySwitchCommand(this, true);
             CloseCommand = new CloseWindowCommand(Application.Current.MainWindow);
             ReturnToCornerCommand = new ReturnToCornerCommand(this);
             OpenSettingsCommand = new OpenSettingsCommand();
         }
 
         private void CurrentViewModelChanged() => NotifyPropertyChanged(nameof(CurrentViewModel));
-
-        public void HideHeader() {
-            WindowHeight = SizingConst.WindowHeightNoHeader;
-            HeaderGridRowHeight = 0;
-            Application.Current.MainWindow.Top += SizingConst.HeaderHeight;
-        }
-
-        public void ShowHeader() {
-            WindowHeight = SizingConst.WindowHeightWithHeader;
-            HeaderGridRowHeight = SizingConst.HeaderHeight;
-            Application.Current.MainWindow.Top -= SizingConst.HeaderHeight;
-        }
-
-        public void OnMouseEnter(object? sender, MouseEventArgs e) => ShowHeader();
-        public void OnMouseLeave(object? sender, MouseEventArgs e) {
-            if (Application.Current.MainWindow != null) HideHeader();
-        }
     }
 }

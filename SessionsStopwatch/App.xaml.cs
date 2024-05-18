@@ -27,8 +27,6 @@ namespace SessionsStopwatch {
         private void InstantiateMainWindow() {
             MainWindow mainWindow = new();
             MainViewModel mainVM = new(_navigationStore);
-            mainWindow.MouseEnter += mainVM.OnMouseEnter;
-            mainWindow.MouseLeave += mainVM.OnMouseLeave;
 
             mainWindow.DataContext = mainVM;
 
