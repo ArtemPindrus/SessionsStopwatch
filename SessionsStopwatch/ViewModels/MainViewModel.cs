@@ -71,7 +71,13 @@ namespace SessionsStopwatch.ViewModels
             HeaderRowHeight = 0;
         }
 
-        public void HandleMouseEnter(object? sender, MouseEventArgs e) => ShowHeader();
-        public void HandleMouseLeave(object? sender, MouseEventArgs e) => HideHeader();
+        public void HandleMouseEnter(object? sender, MouseEventArgs e) {
+            if (Application.Current.MainWindow != null)
+                ShowHeader();
+        }
+        public void HandleMouseLeave(object? sender, MouseEventArgs e) {
+            if (Application.Current.MainWindow != null)
+                HideHeader();
+        }
     }
 }

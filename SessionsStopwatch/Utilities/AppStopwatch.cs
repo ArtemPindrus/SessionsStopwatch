@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using SessionsStopwatch.ViewModels;
+using SessionsStopwatch.Windows;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
@@ -57,14 +59,22 @@ namespace SessionsStopwatch.Utilities
 
             foreach (var reminder in Reminders) {
                 if (reminder.Time == TimeElapsed) Remind(reminder.Time);
-                else if (reminder.Behavior == ReminderBehavior.Repeat 
-                    && TimeElapsed.TotalSeconds > 0 && TimeElapsed.TotalSeconds % reminder.Time.TotalSeconds == 0) Remind(reminder.Time, true);
+                else if (reminder.Behavior == ReminderBehavior.Repeat) {
+                    double elapsedSeconds = TimeElapsed.TotalSeconds;
+                    double reminderSeconds = reminder.Time.TotalSeconds;
+
+                    if (elapsedSeconds > 0 && elapsedSeconds % reminderSeconds == 0)
+                        Remind(reminder.Time, (int)(elapsedSeconds / reminderSeconds));
+                }
             }
         }
 
-        private static void Remind(TimeSpan time, bool again = false) {
-#warning notImpl
-            MessageBox.Show(again ? $"Hey another {time} has passed!" : $"Hey {time} has passed!");
+        private static void Remind(TimeSpan time, int times = 1) {
+            string text = times > 1 ? $"Hey, another {time} has passed ({times})" : $"Hey, {time} has passed";
+
+            ReminderWindow remWin = new();
+            remWin.DataContext = new ReminderVM(text, remWin);
+            remWin.Show();
         }
 
         public static void Stop() {
