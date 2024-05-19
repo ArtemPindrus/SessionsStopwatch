@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
 
 namespace SessionsStopwatch.Utilities
 {
@@ -26,6 +27,7 @@ namespace SessionsStopwatch.Utilities
             }
         }
 
+        [XmlIgnore]
         public string? StringyTime { 
             get => Time.ToString();
             set {
@@ -39,9 +41,15 @@ namespace SessionsStopwatch.Utilities
             }
         }
 
-        public ReminderBehavior Behavior { 
-            get; 
-            set; 
+        private ReminderBehavior _behavior;
+        public ReminderBehavior Behavior {
+            get => _behavior;
+            set {
+                if (_behavior != value) { 
+                    _behavior = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
