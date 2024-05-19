@@ -29,19 +29,16 @@ namespace SessionsStopwatch.ViewModels {
         }
 
         public bool Startup { 
-            get => AppSettings.Default.Startup;
+            get => RegistryRunKeyHelper.IsInRunKey;
             set {
                 if (AppSettings.Default.Startup != value) {
                     AppSettings.Default.Startup = value;
                     AppSettings.Default.Save();
+
+                    if (value == true) RegistryRunKeyHelper.AddAppToRunKey();
+                    else RegistryRunKeyHelper.RemoveAppToRunKey();
+
                     NotifyPropertyChanged();
-
-                    var keyPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
-                    string appPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                    RegistryKey? key = Registry.CurrentUser.OpenSubKey(keyPath, true);
-
-                    if (value == true) key?.SetValue("SessionStopwatch", appPath);
-                    else key?.DeleteValue("SessionStopwatch", true);
                 }
             }
         }
