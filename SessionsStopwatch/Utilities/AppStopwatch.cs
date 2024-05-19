@@ -44,6 +44,8 @@ namespace SessionsStopwatch.Utilities
         }
 
         private static ObservableCollection<Reminder> DeserializeReminders() {
+            if (!File.Exists(PathToRemindersXML)) return [];
+
             using StreamReader reader = new(PathToRemindersXML);
             ObservableCollection<Reminder>? deser = _remindersSerializer.Deserialize(reader) as ObservableCollection<Reminder>;
 
