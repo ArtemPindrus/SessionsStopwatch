@@ -60,7 +60,7 @@
                     <DataGridComboBoxColumn
                         Header="Behavior"
                         ItemsSource="{Binding Source={StaticResource ReminderBehaviorEnum}}"
-                        SelectedItemBinding="{Binding Behavior}" />
+                        SelectedItemBinding="{Binding Behavior, UpdateSourceTrigger=PropertyChanged}" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

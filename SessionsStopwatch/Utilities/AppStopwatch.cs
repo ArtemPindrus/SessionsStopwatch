@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
+using System.Media;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using System.Xml.Serialization;
@@ -12,8 +13,8 @@ namespace SessionsStopwatch.Utilities
 {
     static class AppStopwatch {
         private const string PathToRemindersXML = @"reminders.xml";
-        private static readonly DispatcherTimer _timer;
         private static readonly XmlSerializer _remindersSerializer = new(typeof(ObservableCollection<Reminder>));
+        private static readonly DispatcherTimer _timer;
 
         public static ObservableCollection<Reminder> Reminders { get; }
 
@@ -37,9 +38,17 @@ namespace SessionsStopwatch.Utilities
 
         private static void HandleRemindersChanged(object? sender, NotifyCollectionChangedEventArgs e) {
             SerializeReminders();
+            if (e.Action == NotifyCollectionChangedAction.Add && e.NewItems != null) {
+                foreach (var newReminder in e.NewItems) ((Reminder)newReminder).PropertyChanged += SingleReminderChanged;
+            } else if (e.Action == NotifyCollectionChangedAction.Remove && e.OldItems != null) {
+                foreach (var oldReminder in e.OldItems) ((Reminder)oldReminder).PropertyChanged -= SingleReminderChanged;
+            }
         }
 
-#warning Doesn't serialize on item change
+        private static void SingleReminderChanged(object? sender, PropertyChangedEventArgs e) {
+            SerializeReminders();
+        }
+
         public static void SerializeReminders() {
             using StreamWriter writer = new(PathToRemindersXML);
             _remindersSerializer.Serialize(writer, Reminders);
@@ -50,6 +59,7 @@ namespace SessionsStopwatch.Utilities
 
             using StreamReader reader = new(PathToRemindersXML);
             ObservableCollection<Reminder>? deser = _remindersSerializer.Deserialize(reader) as ObservableCollection<Reminder>;
+            if (deser != null) foreach (var reminder in deser) reminder.PropertyChanged += SingleReminderChanged; 
 
             return deser ?? [];
         }
@@ -75,6 +85,7 @@ namespace SessionsStopwatch.Utilities
             ReminderWindow remWin = new();
             remWin.DataContext = new ReminderVM(text, remWin);
             remWin.Show();
+            SystemSounds.Beep.Play();
         }
 
         public static void Stop() {
