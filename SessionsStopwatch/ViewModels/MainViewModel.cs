@@ -2,17 +2,35 @@
 using SessionsStopwatch.Utilities;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace SessionsStopwatch.ViewModels
 {
-    class MainViewModel : ViewModelBase
-    {
+    class MainViewModel : ViewModelBase {
         private readonly NavigationStore _navigationStore;
 
         private Visibility _windowVisibility = Visibility.Visible;
 
+        private double _windowHeight = SizingConst.WindowHeightNoHeader;
+        public double WindowHeight {
+            get => _windowHeight;
+            set {
+                _windowHeight = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private double _headerRowHeight = 0;
+        public double HeaderRowHeight {
+            get => _headerRowHeight;
+            set {
+                _headerRowHeight = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public ViewModelBase? CurrentViewModel => _navigationStore.CurrentViewModel;
-        public Visibility WindowVisibility { 
+        public Visibility WindowVisibility {
             get => _windowVisibility;
             set {
                 if (_windowVisibility != value) {
@@ -40,5 +58,20 @@ namespace SessionsStopwatch.ViewModels
         }
 
         private void CurrentViewModelChanged() => NotifyPropertyChanged(nameof(CurrentViewModel));
+
+        private void ShowHeader() {
+            WindowHeight = SizingConst.WindowHeightWithHeader;
+            Application.Current.MainWindow.Top -= SizingConst.HeaderHeight;
+            HeaderRowHeight = SizingConst.HeaderHeight;
+        }
+
+        private void HideHeader() {
+            WindowHeight = SizingConst.WindowHeightNoHeader;
+            Application.Current.MainWindow.Top += SizingConst.HeaderHeight;
+            HeaderRowHeight = 0;
+        }
+
+        public void HandleMouseEnter(object? sender, MouseEventArgs e) => ShowHeader();
+        public void HandleMouseLeave(object? sender, MouseEventArgs e) => HideHeader();
     }
 }
