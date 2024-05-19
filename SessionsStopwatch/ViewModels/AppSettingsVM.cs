@@ -31,10 +31,7 @@ namespace SessionsStopwatch.ViewModels {
         public bool Startup { 
             get => RegistryRunKeyHelper.IsInRunKey;
             set {
-                if (AppSettings.Default.Startup != value) {
-                    AppSettings.Default.Startup = value;
-                    AppSettings.Default.Save();
-
+                if (RegistryRunKeyHelper.IsInRunKey != value) {
                     if (value == true) RegistryRunKeyHelper.AddAppToRunKey();
                     else RegistryRunKeyHelper.RemoveAppToRunKey();
 

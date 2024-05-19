@@ -46,17 +46,5 @@ namespace SessionsStopwatch {
                 this["LimitToMonitor"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Startup {
-            get {
-                return ((bool)(this["Startup"]));
-            }
-            set {
-                this["Startup"] = value;
-            }
-        }
     }
 }
