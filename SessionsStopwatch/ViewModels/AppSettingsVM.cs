@@ -51,7 +51,7 @@ namespace SessionsStopwatch.ViewModels {
         public ICommand HideWindowCommand { get; }
 
         public AppSettingsVM(SettingsWindow associatedWindow) {
-            HideWindowCommand = new HideWindowCommand(associatedWindow);
+            HideWindowCommand = new ChangeWindowVisibility(associatedWindow);
         }
     }
 }
