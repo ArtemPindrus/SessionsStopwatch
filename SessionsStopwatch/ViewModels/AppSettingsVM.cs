@@ -1,7 +1,5 @@
-﻿using Microsoft.Win32;
-using SessionsStopwatch.Commands;
+﻿using SessionsStopwatch.Commands;
 using SessionsStopwatch.Utilities;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace SessionsStopwatch.ViewModels {
@@ -50,10 +48,10 @@ namespace SessionsStopwatch.ViewModels {
         }
         public event Action? AddReminderTextBoxChanged;
 
-        public ICommand CloseCommand { get; }
+        public ICommand HideWindowCommand { get; }
 
         public AppSettingsVM(SettingsWindow associatedWindow) {
-            CloseCommand = new CloseWindowCommand(associatedWindow);
+            HideWindowCommand = new HideWindowCommand(associatedWindow);
         }
     }
 }

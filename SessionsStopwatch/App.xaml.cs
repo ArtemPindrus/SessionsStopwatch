@@ -17,7 +17,7 @@ namespace SessionsStopwatch {
             _navigationStore.CurrentViewModel = AppSettings.Default.AutoStartOnSession ? 
                 new StopwatchViewModel() : new StartStopwatchVM(_navigationStore);
 
-            InstantiateMainWindow();
+            InstantiateWindows();
 
             SystemEvents.SessionSwitch += OnSessionSwitch;
 
@@ -30,15 +30,18 @@ namespace SessionsStopwatch {
             base.OnExit(e);
         }
 
-        private void InstantiateMainWindow() {
+        private void InstantiateWindows() {
+            SettingsWindow settingsWindow = new();
+            settingsWindow.DataContext = new AppSettingsVM(settingsWindow);
+
             MainWindow mainWindow = new();
-            MainViewModel mainVM = new(_navigationStore);
+            MainWindow = mainWindow;
+
+            MainViewModel mainVM = new(_navigationStore, settingsWindow);
             mainWindow.MouseEnter += mainVM.HandleMouseEnter;
             mainWindow.MouseLeave += mainVM.HandleMouseLeave;
 
             mainWindow.DataContext = mainVM;
-
-            MainWindow = mainWindow;
 
             MainWindow.Show();
         }

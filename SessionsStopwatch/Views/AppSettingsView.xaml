@@ -53,6 +53,7 @@
                 CanUserAddRows="True"
                 CanUserResizeColumns="False"
                 CanUserResizeRows="False"
+                HeadersVisibility="Column"
                 ItemsSource="{x:Static util:AppStopwatch.Reminders}"
                 SelectionMode="Single">
                 <DataGrid.Columns>

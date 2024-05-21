@@ -1,13 +1,15 @@
 ﻿using SessionsStopwatch.ViewModels;
 using StoreApp.Commands;
+using System.Windows;
 
 namespace SessionsStopwatch.Commands {
     public class OpenSettingsCommand : CommandBase {
-        public override void Execute(object? parameter) {
-            SettingsWindow settingsWindow = new();
+        private readonly SettingsWindow _settingsWindow;
 
-            settingsWindow.DataContext = new AppSettingsVM(settingsWindow);
-            settingsWindow.Show();
+        public OpenSettingsCommand(SettingsWindow settingsWindow) => _settingsWindow = settingsWindow;
+
+        public override void Execute(object? parameter) {
+            _settingsWindow.Show();
         }
     }
 }
