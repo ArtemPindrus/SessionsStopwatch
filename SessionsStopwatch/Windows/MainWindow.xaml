@@ -11,9 +11,9 @@
     xmlns:vms="clr-namespace:SessionsStopwatch.ViewModels"
     Title="MainWindow"
     Width="100"
-    Height="{Binding WindowHeight, Mode=TwoWay}"
+    Height="50"
     AllowsTransparency="True"
-    Background="{StaticResource ResourceKey=AppMeatBrush}"
+    Background="Transparent"
     LocationChanged="Window_LocationChanged"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     ResizeMode="NoResize"
@@ -27,7 +27,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="{Binding HeaderRowHeight}" />
+            <RowDefinition Height="20" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -55,7 +55,7 @@
         </tb:TaskbarIcon>
 
         <!--  Header  -->
-        <Border Background="{StaticResource HeaderBrush}">
+        <Border Background="{StaticResource HeaderBrush}" Visibility="{Binding HeaderVisibility}">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button
                     Command="{Binding ChangeSettingsVisibilityCommand}"

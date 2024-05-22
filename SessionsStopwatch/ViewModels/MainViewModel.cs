@@ -1,35 +1,17 @@
 ﻿using SessionsStopwatch.Commands;
-using SessionsStopwatch.Utilities;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace SessionsStopwatch.ViewModels
 {
     class MainViewModel : ViewModelBase {
         private readonly NavigationStore _navigationStore;
 
-        private Visibility _windowVisibility = Visibility.Visible;
-
-        private double _windowHeight = SizingConst.WindowHeightNoHeader;
-        public double WindowHeight {
-            get => _windowHeight;
-            set {
-                _windowHeight = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private double _headerRowHeight = 0;
-        public double HeaderRowHeight {
-            get => _headerRowHeight;
-            set {
-                _headerRowHeight = value;
-                NotifyPropertyChanged();
-            }
-        }
 
         public ViewModelBase? CurrentViewModel => _navigationStore.CurrentViewModel;
+
+
+        private Visibility _windowVisibility = Visibility.Visible;
         public Visibility WindowVisibility {
             get => _windowVisibility;
             set {
@@ -37,6 +19,15 @@ namespace SessionsStopwatch.ViewModels
                     _windowVisibility = value;
                     NotifyPropertyChanged();
                 }
+            }
+        }
+
+        private Visibility _headerVisibility = Visibility.Hidden;
+        public Visibility HeaderVisibility {
+            get => _headerVisibility;
+            set {
+                _headerVisibility = value;
+                NotifyPropertyChanged();
             }
         }
 
@@ -60,15 +51,11 @@ namespace SessionsStopwatch.ViewModels
         private void CurrentViewModelChanged() => NotifyPropertyChanged(nameof(CurrentViewModel));
 
         private void ShowHeader() {
-            WindowHeight = SizingConst.WindowHeightWithHeader;
-            Application.Current.MainWindow.Top -= SizingConst.HeaderHeight;
-            HeaderRowHeight = SizingConst.HeaderHeight;
+            HeaderVisibility = Visibility.Visible;
         }
 
         private void HideHeader() {
-            WindowHeight = SizingConst.WindowHeightNoHeader;
-            Application.Current.MainWindow.Top += SizingConst.HeaderHeight;
-            HeaderRowHeight = 0;
+            HeaderVisibility = Visibility.Hidden;
         }
 
         public void HandleMouseEnter(object? sender, MouseEventArgs e) {
