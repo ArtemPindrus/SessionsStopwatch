@@ -20,4 +20,11 @@
         <Setter Property="Margin" Value="3,0" />
     </Style>
 
+    <Style x:Key="RemindersColumnHeader" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{StaticResource HeaderBrush}" />
+        <Setter Property="SeparatorBrush" Value="Black" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
+
 </ResourceDictionary>

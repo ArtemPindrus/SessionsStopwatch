@@ -48,14 +48,19 @@
 
             <DataGrid
                 Grid.Row="1"
-                MinHeight="100"
+                Height="Auto"
+                MinHeight="12"
                 AutoGenerateColumns="False"
                 CanUserAddRows="True"
+                CanUserReorderColumns="False"
                 CanUserResizeColumns="False"
                 CanUserResizeRows="False"
+                ColumnHeaderStyle="{StaticResource RemindersColumnHeader}"
                 HeadersVisibility="Column"
                 ItemsSource="{x:Static util:AppStopwatch.Reminders}"
+                RowBackground="{StaticResource AppMeatBrush}"
                 SelectionMode="Single">
+
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding StringyTime}" Header="Time" />
                     <DataGridComboBoxColumn
