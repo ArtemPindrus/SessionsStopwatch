@@ -1,6 +1,8 @@
 ﻿using SessionsStopwatch.Commands;
 using SessionsStopwatch.Utilities;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Media3D;
 
 namespace SessionsStopwatch.ViewModels {
     public class AppSettingsVM : ViewModelBase {
@@ -22,6 +24,8 @@ namespace SessionsStopwatch.ViewModels {
                     AppSettings.Default.LimitToMonitor = value;
                     AppSettings.Default.Save();
                     NotifyPropertyChanged();
+
+                    if (value == true) WindowUtility.LimitToScreenBounds(App.Current.MainWindow);
                 }
             }
         }

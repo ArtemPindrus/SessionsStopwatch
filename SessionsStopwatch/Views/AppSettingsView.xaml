@@ -62,7 +62,9 @@
                 SelectionMode="Single">
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding StringyTime}" Header="Time" />
+                    <DataGridTextColumn
+                        Binding="{Binding StringyTime}"
+                        Header="Time" />
                     <DataGridComboBoxColumn
                         Header="Behavior"
                         ItemsSource="{Binding Source={StaticResource ReminderBehaviorEnum}}"
