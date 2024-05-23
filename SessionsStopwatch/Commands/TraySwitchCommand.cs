@@ -8,14 +8,9 @@ using System.Threading.Tasks;
 
 namespace SessionsStopwatch.Commands
 {
-    class TraySwitchCommand : CommandBase{
-        private readonly MainViewModel _vm;
-        private readonly bool _toTray;
-
-        public TraySwitchCommand(MainViewModel viewModel, bool toTray) {
-            _vm = viewModel;
-            _toTray = toTray;
-        }
+    class TraySwitchCommand(MainViewModel viewModel, bool toTray) : CommandBase {
+        private readonly MainViewModel _vm = viewModel;
+        private readonly bool _toTray = toTray;
 
         public override void Execute(object? parameter) {
             _vm.WindowVisibility = _toTray ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;

@@ -3,12 +3,8 @@ using System.Windows;
 
 namespace SessionsStopwatch.ViewModels
 {
-    class CloseWindowCommand : CommandBase {
-        private readonly Window _window;
-
-        public CloseWindowCommand(Window window) { 
-            _window = window;
-        }
+    class CloseWindowCommand(Window window) : CommandBase {
+        private readonly Window _window = window;
 
         public override void Execute(object? parameter) {
             if (_window == Application.Current.MainWindow) {

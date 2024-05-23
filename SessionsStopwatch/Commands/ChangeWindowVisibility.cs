@@ -2,12 +2,8 @@
 using System.Windows;
 
 namespace SessionsStopwatch.Commands {
-    internal class ChangeWindowVisibility : CommandBase {
-        private readonly Window _window;
-
-        public ChangeWindowVisibility(Window window) {
-            _window = window;
-        }
+    internal class ChangeWindowVisibility(Window window) : CommandBase {
+        private readonly Window _window = window;
 
         public override void Execute(object? parameter) {
             if(_window.IsVisible) _window.Hide();
