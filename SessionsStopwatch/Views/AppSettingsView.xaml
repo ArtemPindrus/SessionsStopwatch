@@ -62,9 +62,8 @@
                 SelectionMode="Single">
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn
-                        Binding="{Binding StringyTime}"
-                        Header="Time" />
+                    <DataGridCheckBoxColumn Binding="{Binding Enabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Enabled" />
+                    <DataGridTextColumn Binding="{Binding StringyTime}" Header="Time" />
                     <DataGridComboBoxColumn
                         Header="Behavior"
                         ItemsSource="{Binding Source={StaticResource ReminderBehaviorEnum}}"

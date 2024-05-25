@@ -67,6 +67,8 @@ namespace SessionsStopwatch.Utilities
             TimeElapsedChanged?.Invoke();
 
             foreach (var reminder in Reminders) {
+                if (!reminder.Enabled) continue;
+
                 if (reminder.Time == TimeElapsed) Remind(reminder.Time);
                 else if (reminder.Behavior == ReminderBehavior.Repeat) {
                     double elapsedSeconds = TimeElapsed.TotalSeconds;

@@ -18,6 +18,16 @@ namespace SessionsStopwatch.Utilities
             Behavior = ReminderBehavior.OneTime;
         }
 
+        private bool _enabled;
+        public bool Enabled {
+            get => _enabled;
+            set { 
+                _enabled = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
         private TimeSpan _time;
         public TimeSpan Time {
             get => _time;
