@@ -16,7 +16,6 @@
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
-    SourceInitialized="Window_SourceInitialized"
     Topmost="True"
     Visibility="{Binding WindowVisibility, Mode=TwoWay}"
     WindowState="Normal"
