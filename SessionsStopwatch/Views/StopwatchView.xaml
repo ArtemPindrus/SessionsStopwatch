@@ -16,7 +16,7 @@
                 Command="{Binding RestartStopwatchCommand}"
                 Style="{StaticResource MeatButton}"
                 ToolTip="Restart Stopwatch">
-                <Image Source="\Icons\Reset.png" />
+                <Image RenderOptions.BitmapScalingMode="Fant" Source="\Icons\Reset.png" />
             </Button>
 
             <TextBlock

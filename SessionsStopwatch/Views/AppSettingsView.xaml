@@ -48,9 +48,9 @@
 
             <DataGrid
                 Grid.Row="1"
-                Height="Auto"
-                MinHeight="12"
+                Height="120"
                 AutoGenerateColumns="False"
+                Background="{StaticResource AppMeatBrush}"
                 CanUserAddRows="True"
                 CanUserReorderColumns="False"
                 CanUserResizeColumns="False"
