@@ -25,17 +25,14 @@
     <Grid>
         <StackPanel>
             <CheckBox
-                Background="{StaticResource ButtonBrush}"
                 Content="Start stopwatch on session start."
                 IsChecked="{Binding AutoStartOnSession, Mode=TwoWay}"
                 ToolTip="Automatically starts stopwatch when user logs in. Otherwise user needs to press start button." />
             <CheckBox
-                Background="{StaticResource ButtonBrush}"
                 Content="Limit to monitor bounds."
                 IsChecked="{Binding LimitToMonitorBounds, Mode=TwoWay}"
                 ToolTip="When dragging the window do you want it to be within monitor bounds?" />
             <CheckBox
-                Background="{StaticResource ButtonBrush}"
                 Content="Startup."
                 IsChecked="{Binding Startup, Mode=TwoWay}"
                 ToolTip="Launch app on system startup." />
@@ -50,21 +47,30 @@
                 Grid.Row="1"
                 Height="120"
                 AutoGenerateColumns="False"
-                Background="{StaticResource AppMeatBrush}"
+                Background="{StaticResource BackgroundColor}"
+                BorderBrush="{StaticResource HeaderBrush}"
                 CanUserAddRows="True"
                 CanUserReorderColumns="False"
                 CanUserResizeColumns="False"
                 CanUserResizeRows="False"
                 ColumnHeaderStyle="{StaticResource RemindersColumnHeader}"
                 HeadersVisibility="Column"
+                HorizontalScrollBarVisibility="Disabled"
                 ItemsSource="{x:Static util:AppStopwatch.Reminders}"
-                RowBackground="{StaticResource AppMeatBrush}"
+                RowBackground="{StaticResource BackgroundColor}"
                 SelectionMode="Single">
 
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding Enabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Enabled" />
-                    <DataGridTextColumn Binding="{Binding StringyTime}" Header="Time" />
+                    <DataGridCheckBoxColumn
+                        Width="50"
+                        Binding="{Binding Enabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Header="Enabled" />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding StringyTime}"
+                        Header="Time" />
                     <DataGridComboBoxColumn
+                        Width="100"
                         Header="Behavior"
                         ItemsSource="{Binding Source={StaticResource ReminderBehaviorEnum}}"
                         SelectedItemBinding="{Binding Behavior, UpdateSourceTrigger=PropertyChanged}" />

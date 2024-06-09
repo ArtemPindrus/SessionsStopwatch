@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="10"
     d:DesignWidth="20"
-    Background="{StaticResource AppMeatBrush}"
+    Background="{StaticResource BackgroundColor}"
     mc:Ignorable="d">
     <Viewbox>
         <Button Command="{Binding StartStopwatchCommand}" Style="{StaticResource MeatButton}">

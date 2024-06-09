@@ -6,11 +6,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:SessionsStopwatch.Views"
     Title="SettingsWindow"
-    Width="250"
-    Height="280"
-    MinHeight="280"
+    Width="350"
+    Height="300"
+    MinHeight="300"
     AllowsTransparency="True"
-    Background="{StaticResource AppMeatBrush}"
+    Background="{StaticResource BackgroundColor}"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     ResizeMode="CanResizeWithGrip"
     SourceInitialized="Window_SourceInitialized"
@@ -33,7 +33,10 @@
                 Style="{StaticResource HeaderButton}" />
         </StackPanel>
 
-        <Viewbox Grid.Row="1" Margin="3">
+        <Viewbox
+            Grid.Row="1"
+            Margin="3"
+            Stretch="UniformToFill">
             <views:AppSettingsView />
         </Viewbox>
     </Grid>

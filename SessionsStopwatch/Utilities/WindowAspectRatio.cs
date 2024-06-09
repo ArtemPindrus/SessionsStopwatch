@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Interop;
 
 namespace SessionsStopwatch.Utilities {
+#warning blindly copied code
     internal class WindowAspectRatio {
         private readonly double _ratio;
 
