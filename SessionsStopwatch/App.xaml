@@ -3,7 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:SessionsStopwatch"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:util="clr-namespace:SessionsStopwatch.Utilities">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,6 +13,15 @@
             </ResourceDictionary.MergedDictionaries>
 
             <GridLength x:Key="HeaderHeight">20</GridLength>
+
+            <ObjectDataProvider
+                x:Key="ReminderBehaviorEnum"
+                MethodName="GetValues"
+                ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="util:ReminderBehavior" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

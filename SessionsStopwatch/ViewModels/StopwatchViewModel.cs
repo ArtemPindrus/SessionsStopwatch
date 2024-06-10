@@ -9,16 +9,19 @@ namespace SessionsStopwatch.ViewModels
         public string ElapsedTime {
             get => AppStopwatch.TimeElapsed.ToString();
         }
+
+        public bool IsStopwatchEnabled => AppStopwatch.IsEnabled;
 #pragma warning restore CA1822 // Mark members as static
 
         public StopwatchViewModel() {
-            AppStopwatch.TimeElapsedChanged += AppStopwatch_TimeElapsedChanged;
+            AppStopwatch.TimeElapsedChanged += () => NotifyPropertyChanged(nameof(ElapsedTime)); ;
+            AppStopwatch.IsEnabledChanged += () => NotifyPropertyChanged(nameof(IsStopwatchEnabled));
 
             RestartStopwatchCommand = new RestartStopwatchCommand();
+            SwitchStopwatchState = new SwitchStopwatchState();
         }
 
-        private void AppStopwatch_TimeElapsedChanged() => NotifyPropertyChanged(nameof(ElapsedTime));
-
+        public ICommand SwitchStopwatchState { get; }
         public ICommand RestartStopwatchCommand { get; }
     }
 }

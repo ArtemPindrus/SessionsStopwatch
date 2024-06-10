@@ -1,10 +1,53 @@
 ﻿using SessionsStopwatch.Commands;
 using SessionsStopwatch.Utilities;
+using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Collections.ObjectModel;
 
 namespace SessionsStopwatch.ViewModels {
-    public class AppSettingsVM(SettingsWindow associatedWindow) : ViewModelBase {
-        public ICommand HideWindowCommand { get; } = new ChangeWindowVisibility(associatedWindow);
+    public class AppSettingsVM : ViewModelBase {
+
+        public AppSettingsVM(SettingsWindow associatedWindow) {
+            HideWindowCommand = new ChangeWindowVisibility(associatedWindow);
+            associatedWindow.MouseRightButtonDown += HandleMouseRightButtonDown;
+            DeleteReminderCommand = new DeleteReminderCommand(this);
+            OpenAddReminderWindow = new OpenAddReminderWindow();
+        }
+
+        private Reminder? _lastSelected;
+        public Reminder? LastSelected { 
+            get => _lastSelected;
+            set { 
+                _lastSelected = value;
+                LastSelectedChanged?.Invoke();
+            }
+        }
+        public event Action? LastSelectedChanged;
+
+        private void HandleMouseRightButtonDown(object sender, MouseButtonEventArgs e) {
+            DependencyObject? originalSource = (DependencyObject)e.OriginalSource;
+
+            while (originalSource != null && originalSource is not DataGridCell) {
+                originalSource = VisualTreeHelper.GetParent(originalSource);
+            }
+
+            if (originalSource is DataGridCell cell) {
+                DataGridRow row = DataGridRow.GetRowContainingElement(cell);
+
+                Reminder? item = row.Item as Reminder;
+                LastSelected = item;
+            } else LastSelected = null;
+        }
+
+        public ICommand HideWindowCommand { get; }
+        public ICommand DeleteReminderCommand { get; }
+        public ICommand OpenAddReminderWindow { get; }
+
+#pragma warning disable CA1822 // Mark members as static
+        public ReadOnlyObservableCollection<Reminder> Reminders => AppStopwatch.ReminderRO;
+#pragma warning restore CA1822 // Mark members as static
 
 
         public bool AutoStartOnSession {

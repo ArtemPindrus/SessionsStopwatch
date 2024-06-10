@@ -24,12 +24,6 @@ namespace SessionsStopwatch {
             base.OnStartup(e);
         }
 
-        protected override void OnExit(ExitEventArgs e) {
-            AppStopwatch.SerializeReminders();
-
-            base.OnExit(e);
-        }
-
         private void InstantiateWindows() {
             SettingsWindow settingsWindow = new();
             settingsWindow.DataContext = new AppSettingsVM(settingsWindow);

@@ -9,7 +9,7 @@
     Width="200"
     Height="100"
     AllowsTransparency="True"
-    Background="{StaticResource AppMeatBrush}"
+    Background="{StaticResource BackgroundColor}"
     ResizeMode="NoResize"
     Topmost="True"
     WindowStartupLocation="CenterScreen"

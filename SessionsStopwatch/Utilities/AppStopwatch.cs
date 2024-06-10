@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Media;
+using System.Windows;
 using System.Windows.Threading;
 using System.Xml.Serialization;
 
@@ -15,14 +16,40 @@ namespace SessionsStopwatch.Utilities
         private static readonly XmlSerializer _remindersSerializer = new(typeof(ObservableCollection<Reminder>));
         private static readonly DispatcherTimer _timer;
 
-        public static ObservableCollection<Reminder> Reminders { get; }
+        private static ObservableCollection<Reminder> Reminders { get; }
+        public static ReadOnlyObservableCollection<Reminder> ReminderRO { get; }
 
-        public static TimeSpan TimeElapsed { get; private set; }
+        private static TimeSpan _timeElapsed;
+        public static TimeSpan TimeElapsed {
+            get => _timeElapsed;
+            set { 
+                _timeElapsed = value;
+
+                TimeElapsedChanged?.Invoke();
+
+                foreach (var reminder in Reminders) {
+                    if (!reminder.Enabled) continue;
+
+                    if (reminder.Time == TimeElapsed) Remind(reminder.Time);
+                    else if (reminder.Behavior == ReminderBehavior.Repeat) {
+                        double elapsedSeconds = TimeElapsed.TotalSeconds;
+                        double reminderSeconds = reminder.Time.TotalSeconds;
+
+                        if (elapsedSeconds > 0 && elapsedSeconds % reminderSeconds == 0)
+                            Remind(reminder.Time, (int)(elapsedSeconds / reminderSeconds));
+                    }
+                }
+            }
+        }
         public static event Action? TimeElapsedChanged;
+
+        public static bool IsEnabled => _timer.IsEnabled;
+        public static event Action? IsEnabledChanged;
 
         static AppStopwatch() {
             Reminders = DeserializeReminders();
             Reminders.CollectionChanged += HandleRemindersChanged;
+            ReminderRO = new(Reminders);
 
             _timer = new() {
                 Interval = TimeSpan.FromSeconds(1)
@@ -31,9 +58,12 @@ namespace SessionsStopwatch.Utilities
 
             _timer.Tick += (object? sender, EventArgs e) => {
                 TimeElapsed += TimeSpan.FromSeconds(1);
-                OnTimeElapsedChanged();
             };
+
+            App.Current.Exit += HandleApplicationExit;
         }
+
+        private static void HandleApplicationExit(object sender, ExitEventArgs e) => SerializeReminders();
 
         private static void HandleRemindersChanged(object? sender, NotifyCollectionChangedEventArgs e) {
             SerializeReminders();
@@ -48,10 +78,7 @@ namespace SessionsStopwatch.Utilities
             SerializeReminders();
         }
 
-        public static void SerializeReminders() {
-            using StreamWriter writer = new(PathToRemindersXML);
-            _remindersSerializer.Serialize(writer, Reminders);
-        }
+
 
         private static ObservableCollection<Reminder> DeserializeReminders() {
             if (!File.Exists(PathToRemindersXML)) return [];
@@ -63,23 +90,6 @@ namespace SessionsStopwatch.Utilities
             return deser ?? [];
         }
 
-        private static void OnTimeElapsedChanged() {
-            TimeElapsedChanged?.Invoke();
-
-            foreach (var reminder in Reminders) {
-                if (!reminder.Enabled) continue;
-
-                if (reminder.Time == TimeElapsed) Remind(reminder.Time);
-                else if (reminder.Behavior == ReminderBehavior.Repeat) {
-                    double elapsedSeconds = TimeElapsed.TotalSeconds;
-                    double reminderSeconds = reminder.Time.TotalSeconds;
-
-                    if (elapsedSeconds > 0 && elapsedSeconds % reminderSeconds == 0)
-                        Remind(reminder.Time, (int)(elapsedSeconds / reminderSeconds));
-                }
-            }
-        }
-
         private static void Remind(TimeSpan time, int times = 1) {
             string text = times > 1 ? $"Hey, another {time} has passed ({times})" : $"Hey, {time} has passed";
 
@@ -89,14 +99,41 @@ namespace SessionsStopwatch.Utilities
             SystemSounds.Beep.Play();
         }
 
+        private static void SerializeReminders() {
+            using StreamWriter writer = new(PathToRemindersXML);
+            _remindersSerializer.Serialize(writer, Reminders);
+        }
+
+
+        #region Public API
+
         public static void Stop() {
             _timer.Stop();
+            IsEnabledChanged?.Invoke();
+        }
+
+
+        public static void Resume() { 
+            _timer.Start();
+            IsEnabledChanged?.Invoke();
         }
 
         public static void Restart() {
+            _timer.Stop();
             _timer.Start();
             TimeElapsed = TimeSpan.Zero;
-            OnTimeElapsedChanged();
+            IsEnabledChanged?.Invoke();
         }
+
+        public static void DeleteReminder(Reminder target) { 
+            Reminders.Remove(target);
+            SerializeReminders();
+        }
+
+        public static void AddReminder(TimeSpan time, ReminderBehavior behavior, bool enabled) {
+            Reminders.Add(new(time, behavior, enabled));
+        }
+
+        #endregion
     }
 }

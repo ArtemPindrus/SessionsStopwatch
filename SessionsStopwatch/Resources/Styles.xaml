@@ -17,7 +17,6 @@
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Width" Value="17" />
         <Setter Property="Height" Value="17" />
-        <Setter Property="Margin" Value="3,0" />
     </Style>
 
     <Style x:Key="RemindersColumnHeader" TargetType="DataGridColumnHeader">

@@ -8,9 +8,10 @@ namespace SessionsStopwatch.Utilities
     public enum ReminderBehavior { OneTime, Repeat }
 
     public partial class Reminder : INotifyPropertyChanged {
-        public Reminder(TimeSpan time, ReminderBehavior behavior) {
+        public Reminder(TimeSpan time, ReminderBehavior behavior, bool enabled = false) {
             Time = time;
             Behavior = behavior;
+            Enabled = enabled;
         }
 
         public Reminder() { 
@@ -70,5 +71,21 @@ namespace SessionsStopwatch.Utilities
 
         [GeneratedRegex(@"^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$")]
         private static partial Regex TimeRegex();
+
+        //public static bool operator ==(Reminder lhs, Reminder rhs) { 
+        //    return lhs.Time == rhs.Time && lhs.Behavior == rhs.Behavior;
+        //}
+
+        //public static bool operator !=(Reminder lhs, Reminder rhs) => !(lhs == rhs);
+
+        //public override bool Equals(object? obj) {
+        //    if (obj == null) return false;
+
+        //    return ReferenceEquals(this, obj) || GetHashCode() == obj.GetHashCode();
+        //}
+
+        //public override int GetHashCode() {
+        //    return (int)Time.TotalSeconds + (int)Behavior;
+        //}
     }
 }
