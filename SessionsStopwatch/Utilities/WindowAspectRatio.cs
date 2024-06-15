@@ -9,7 +9,7 @@ namespace SessionsStopwatch.Utilities {
 
         private WindowAspectRatio(Window window) {
             _ratio = window.Width / window.Height;
-            ((HwndSource)HwndSource.FromVisual(window)).AddHook(DragHook);
+            ((HwndSource)PresentationSource.FromVisual(window)).AddHook(DragHook);
         }
 
         public static void Register(Window window) {
@@ -38,20 +38,20 @@ namespace SessionsStopwatch.Utilities {
 
         private IntPtr DragHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handeled) {
             if ((WM)msg == WM.WINDOWPOSCHANGING) {
-                WINDOWPOS position = (WINDOWPOS)Marshal.PtrToStructure(lParam, typeof(WINDOWPOS));
+                object? lParamMarshaled = Marshal.PtrToStructure(lParam, typeof(WINDOWPOS));
 
-                if ((position.flags & (int)SWP.NoMove) != 0 ||
-                    HwndSource.FromHwnd(hwnd).RootVisual == null) return IntPtr.Zero;
+                if (lParamMarshaled is WINDOWPOS position) {
+                    if ((position.flags & (int)SWP.NoMove) != 0 ||
+                        HwndSource.FromHwnd(hwnd).RootVisual == null) return IntPtr.Zero;
 
-                position.cx = (int)(position.cy * _ratio);
+                    position.cx = (int)(position.cy * _ratio);
 
-                Marshal.StructureToPtr(position, lParam, true);
-                handeled = true;
+                    Marshal.StructureToPtr(position, lParam, true);
+                    handeled = true;
+                }
             }
 
             return IntPtr.Zero;
         }
     }
-
-
 }

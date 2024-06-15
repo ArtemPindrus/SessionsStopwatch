@@ -62,13 +62,12 @@
                         Header="Enabled" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding StringyTime, Mode=OneWay}"
+                        Binding="{Binding Time, Mode=OneWay}"
                         Header="Time" />
-                    <DataGridComboBoxColumn
+                    <DataGridTextColumn
                         Width="100"
-                        Header="Behavior"
-                        ItemsSource="{Binding Source={StaticResource ReminderBehaviorEnum}}"
-                        SelectedItemBinding="{Binding Behavior, Mode=OneWay}" />
+                        Binding="{Binding Behavior}"
+                        Header="Behavior" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
