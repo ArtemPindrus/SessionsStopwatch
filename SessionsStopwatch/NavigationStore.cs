@@ -1,19 +1,26 @@
 ﻿using SessionsStopwatch.ViewModels;
 
-namespace SessionsStopwatch
-{
+namespace SessionsStopwatch {
+    /// <summary>
+    /// Stores ViewModel, View of which should be displayed in the MainWindow.
+    /// </summary>
     public class NavigationStore {
-        private ViewModelBase? _currentViewModel;
+        private ViewModelBase? currentViewModel;
+
+        /// <summary>
+        /// Gets invoked when the CurrentViewModel changes
+        /// </summary>
+        public event Action? CurrentViewModelChanged;
+
+        /// <summary>
+        /// Gets or sets ViewModel of the View that should be displayed in the MainWindow.
+        /// </summary>
         public ViewModelBase? CurrentViewModel {
-            get => _currentViewModel;
-            set { 
-                _currentViewModel = value;
-                OnCurrentViewModelChanged();
+            get => currentViewModel;
+            set {
+                currentViewModel = value;
+                CurrentViewModelChanged?.Invoke();
             }
         }
-
-        public void OnCurrentViewModelChanged() => CurrentViewModelChanged?.Invoke();
-
-        public event Action? CurrentViewModelChanged;
     }
 }
