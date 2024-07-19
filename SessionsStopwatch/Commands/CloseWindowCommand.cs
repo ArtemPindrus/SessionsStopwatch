@@ -1,15 +1,24 @@
 ﻿using StoreApp.Commands;
 using System.Windows;
 
-namespace SessionsStopwatch.ViewModels
-{
-    class CloseWindowCommand(Window window) : CommandBase {
-        private readonly Window _window = window;
+namespace SessionsStopwatch.Commands {
+    /// <summary>
+    /// Command used to close a <see cref="Window"/>.
+    /// </summary>
+    /// <param name="window">Associated <see cref="Window"/>.</param>
+    public class CloseWindowCommand(Window window) : CommandBase {
+        private readonly Window window = window;
 
+        /// <summary>
+        /// Closes <see cref="window"/>.
+        /// </summary>
+        /// <param name="parameter"><inheritdoc/></param>
         public override void Execute(object? parameter) {
-            if (_window == Application.Current.MainWindow) {
+            if (window == Application.Current.MainWindow) {
                 Application.Current.Shutdown();
-            } else _window.Close();
+            } else {
+                window.Close();
+            }
         }
     }
 }
