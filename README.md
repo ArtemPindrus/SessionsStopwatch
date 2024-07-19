@@ -1,6 +1,6 @@
 A minimalistic application to keep track of time spent at the PC screen for a session.
 
-![Application](/Images/Application close.jpg?raw=true "Application")
+![Application](/Images/Application_close.jpg?raw=true "Application")
 
 A session refers to time period from the time workstation was unlocked and until it was locked.
 
