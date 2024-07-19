@@ -1,16 +1,23 @@
-﻿using StoreApp.Commands;
-using System.Windows;
+﻿using SessionsStopwatch.Utilities;
 using SessionsStopwatch.ViewModels;
+using StoreApp.Commands;
+using System.Windows;
 
-namespace SessionsStopwatch.Commands
-{
-    class ReturnToCornerCommand(MainViewModel vm) : CommandBase {
-        private readonly MainViewModel _vm = vm;
+namespace SessionsStopwatch.Commands {
+    /// <summary>
+    /// Command puts <see cref="MainWindow"/> to the right-bottom corner of the screen.
+    /// </summary>
+    /// <param name="vm">Associated <see cref="MainViewModel"/>.</param>
+    internal class ReturnToCornerCommand(MainViewModel vm) : CommandBase {
+        private readonly MainViewModel vm = vm;
 
+        /// <summary>
+        /// Puts <see cref="MainWindow"/> to the right-bottom corner of the screen.
+        /// </summary>
+        /// <param name="parameter"><inheritdoc/></param>
         public override void Execute(object? parameter) {
-            Application.Current.MainWindow.Left = SystemParameters.WorkArea.Width - Application.Current.MainWindow.Width;
-            Application.Current.MainWindow.Top = SystemParameters.WorkArea.Height - Application.Current.MainWindow.Height;
-            _vm.WindowVisibility = Visibility.Visible;
+            WindowUtility.ToTheRightBottomCorner(Application.Current.MainWindow);
+            vm.WindowVisibility = Visibility.Visible;
         }
     }
 }

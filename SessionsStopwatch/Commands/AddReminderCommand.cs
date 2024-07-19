@@ -6,18 +6,18 @@ using System.ComponentModel;
 
 namespace SessionsStopwatch.Commands {
     /// <summary>
-    /// Command used to confirm adding <see cref="Reminder"/> on <see cref="AddAReminderWindow"/>.
+    /// Command used to confirm adding <see cref="Reminder"/> on <see cref="AddReminderWindow"/>.
     /// </summary>
     internal class AddReminderCommand : CommandBase {
-        private readonly AddAReminderVM vm;
-        private readonly AddAReminderWindow window;
+        private readonly AddReminderVM vm;
+        private readonly AddReminderWindow window;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AddReminderCommand"/> class associated with <see cref="AddAReminderVM"/> and <see cref="AddAReminderWindow"/>.
+        /// Initializes a new instance of the <see cref="AddReminderCommand"/> class associated with <see cref="AddReminderVM"/> and <see cref="AddReminderWindow"/>.
         /// </summary>
-        /// <param name="vm">Associated <see cref="AddAReminderVM"/>.</param>
-        /// <param name="associatedWindow">Associated <see cref="AddAReminderWindow"/>.</param>
-        public AddReminderCommand(AddAReminderVM vm, AddAReminderWindow associatedWindow) {
+        /// <param name="vm">Associated <see cref="AddReminderVM"/>.</param>
+        /// <param name="associatedWindow">Associated <see cref="AddReminderWindow"/>.</param>
+        public AddReminderCommand(AddReminderVM vm, AddReminderWindow associatedWindow) {
             this.vm = vm;
             this.vm.PropertyChanged += HandlePropertyChanged;
             window = associatedWindow;
@@ -28,7 +28,7 @@ namespace SessionsStopwatch.Commands {
         /// </summary>
         /// <param name="parameter"><inheritdoc/></param>
         public override void Execute(object? parameter) {
-            AppStopwatch.AddReminder(TimeSpan.Parse(vm.FullTimeBox), vm.SelectedBehavior.Value, vm.Enabled);
+            AppStopwatch.AddReminder(TimeSpan.Parse(vm.FullTimeBox), vm.SelectedBehavior!.Value, vm.Enabled);
             window.Close();
         }
 
