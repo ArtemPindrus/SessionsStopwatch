@@ -1,6 +1,7 @@
 A minimalistic application to keep track of time spent at the PC screen for a session.
 
 ![Application](/Images/Application_close.png?raw=true "Application")
+![Application](/Images/Application_far.png?raw=true "Application")
 
 A session refers to time period from the time workstation was unlocked and until it was locked.
 
@@ -9,6 +10,8 @@ Get the zip in releases and unpack it.
 Preferably create a shortcut to SessionsStopwatch.exe and run it.
 
 # Settings
+![Application](/Images/Settings_Window.png?raw=true "Application")
+
 To open settings window: drag your mouse on top of the application and select "S" on appeared header.
 
 By default stopwatch starts tracking time from the unlock moment. This behavior can be turned off by turning of the "Start stopwatch on session start." option in setting.
@@ -19,6 +22,8 @@ By default application is kept within the screen bounds ("Limit to monitor bound
 "Startup" setting ensures that the application is running on the session start. If it's not - runs a new process.
 
 # Reminders
+![Application](/Images/Reminder.png?raw=true "Application")
+
 Reminder is a way to notify user that a *target time* has passed.
 
 In settings window you will find a grid of reminders that is initially empty.
