@@ -34,4 +34,4 @@ Behavior of a reminder refers to a way it gets triggered:
 - Repeat will trigger reminder every time its assigned *target time* passes. (if reminder is set to 00:00:10 it will get triggered, when stopwatch reaches 10, 20, 30, 40 and so forth seconds).
 
 # Dependencies
-Project uses [Hardcodet/wpf-notifyicon](https://github.com/hardcodet/wpf-notifyicon) under the [CPOL license](https://github.com/hardcodet/wpf-notifyicon/blob/develop/LICENSE) for utilizing tray.
+Project uses [Hardcodet/wpf-notifyicon](https://github.com/hardcodet/wpf-notifyicon) under the [CPOL license](https://github.com/hardcodet/wpf-notifyicon/blob/develop/LICENSE) to utilize tray.
