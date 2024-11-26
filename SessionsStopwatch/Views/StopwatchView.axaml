@@ -1,0 +1,36 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:SessionsStopwatch.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="30"
+             x:Class="SessionsStopwatch.Views.StopwatchView"
+             x:DataType="vm:StopwatchViewModel"
+             Background="{StaticResource ContentBrush}">
+    <Design.DataContext>
+        <vm:StopwatchViewModel/>
+    </Design.DataContext>
+    
+    <UserControl.Styles>
+        <Style Selector="Button">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </UserControl.Styles>
+    
+    <StackPanel VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal"
+                Height="30">
+        <Button Command="{Binding StopCommand}">
+            <Image Source="{SvgImage /Assets/Stop.svg}" Width="15"/>
+        </Button>
+        <Button Command="{Binding ChangeStateCommand}">
+            <Svg Path="{Binding ChangeStateIcon, Mode=OneWay}"/>
+        </Button>
+        
+        <TextBlock Text="{Binding Elapsed}" VerticalAlignment="Center"/>
+    </StackPanel>
+</UserControl>

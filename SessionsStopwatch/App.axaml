@@ -1,0 +1,48 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SessionsStopwatch.ViewModels"
+             x:Class="SessionsStopwatch.App"
+             xmlns:local="using:SessionsStopwatch"
+             RequestedThemeVariant="Light"
+             x:DataType="vm:MainWindowViewModel">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+  
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+             
+    <Application.Resources>
+        <SolidColorBrush x:Key="HeaderBrush" Color="#a5dda9"/>
+        <SolidColorBrush x:Key="ContentBrush" Color="#b0ebb4"/>
+        <ControlTheme TargetType="Button" x:Key="HeaderButton">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Black"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </ControlTheme>
+    </Application.Resources>
+             
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Command="{Binding ShowCommand}">
+                <TrayIcon.Menu>
+                    <NativeMenu>
+                        <NativeMenuItem Header="Show"
+                                        Command="{Binding ShowCommand}"/>
+                        <NativeMenuItem Header="Close"
+                                        Command="{Binding CloseCommand}"/>
+                    </NativeMenu>
+                </TrayIcon.Menu>
+            </TrayIcon>
+        </TrayIcons>
+    </TrayIcon.Icons>
+</Application>

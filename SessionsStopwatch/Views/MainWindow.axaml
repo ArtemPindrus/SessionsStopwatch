@@ -1,0 +1,59 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:SessionsStopwatch.ViewModels"
+        xmlns:views="using:SessionsStopwatch.Views"
+        mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="50"
+        x:Class="SessionsStopwatch.Views.MainWindow"
+        Width="100"
+        Height="50"
+        CanResize="False"
+        Topmost="True"
+        x:DataType="vm:MainWindowViewModel"
+
+        IsVisible="{Binding WindowIsVisible}"
+        
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
+        
+        SystemDecorations="None">
+        
+        <Design.DataContext>
+                <vm:MainWindowViewModel HeaderVisibility="True"/>
+        </Design.DataContext>
+        
+        <Window.DataTemplates>
+                <DataTemplate DataType="{x:Type vm:StopwatchViewModel}">
+                        <views:StopwatchView/>
+                </DataTemplate>
+        </Window.DataTemplates>
+        
+        <Window.Styles>
+                <Style Selector="TextBlock">
+                        <Setter Property="Foreground" Value="Black"/>
+                </Style>
+        </Window.Styles>
+        
+        <Grid RowDefinitions="20,*">
+                <Border Background="{StaticResource HeaderBrush}"
+                        IsVisible="{Binding HeaderVisibility}">
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Right"
+                                    IsVisible="{Binding HeaderVisibility}">
+                                <Button Command="{Binding OpenSettingsWindowCommand}"
+                                        Content="S"
+                                        Theme="{StaticResource HeaderButton}"/>
+                                <Button Command="{Binding ToTrayCommand}"
+                                        Content=" -"
+                                        Theme="{StaticResource HeaderButton}"/>
+                                <Button Command="{Binding CloseCommand}"
+                                        Content=" X"
+                                        Theme="{StaticResource HeaderButton}"/>
+                        </StackPanel>
+                </Border>
+                <ContentControl Name="MainContent"
+                                Grid.Row="1" 
+                                Content="{Binding CurrentViewModel}"/>
+        </Grid>
+</Window>

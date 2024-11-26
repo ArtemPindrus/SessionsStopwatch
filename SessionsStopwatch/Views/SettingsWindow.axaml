@@ -1,0 +1,36 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:SessionsStopwatch.ViewModels"
+        mc:Ignorable="d" 
+        d:DesignWidth="400" d:DesignHeight="60"
+        Width="400" Height="60"
+        x:Class="SessionsStopwatch.Views.SettingsWindow"
+        x:DataType="viewModels:SettingsWindowViewModel"
+        
+        SystemDecorations="None"
+        
+        Topmost="True"
+        
+        TransparencyLevelHint="Transparent">
+    <Design.DataContext>
+        <viewModels:SettingsWindowViewModel/>
+    </Design.DataContext>
+    
+    <Grid RowDefinitions="20, *">
+        <Border Background="{StaticResource HeaderBrush}">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Theme="{StaticResource HeaderButton}"
+                        Content=" X"
+                        Command="{Binding CloseWindowCommand}"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1" Background="{StaticResource ContentBrush}">
+            <StackPanel Orientation="Vertical" Margin="5">
+                <CheckBox IsChecked="{Binding CreateLogonTask}">Create logon task</CheckBox>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
