@@ -23,9 +23,7 @@ public partial class SettingsWindowViewModel : ViewModelBase {
     }
 
     private void AppSettingsOnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
-        if (e.PropertyName == nameof(App.AppSettings.CreateLogonTask)) {
-            OnPropertyChanged(nameof(CreateLogonTask));
-        }
+        OnPropertyChanged(e.PropertyName);
     }
 
     [RelayCommand]
