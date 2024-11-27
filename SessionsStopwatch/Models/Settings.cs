@@ -42,8 +42,9 @@ public partial class Settings : ObservableObject {
         writer.Write(jsonStr);
     }
 
-    partial void OnCreateLogonTaskChanged(bool value) {
-        if (value) LogonTask.Register();
-        else LogonTask.Unregister();
+    partial void OnCreateStartOnLogonTaskChanged(bool value) {
+        if (value) TaskManager.Register<LogonTask>();
+        else TaskManager.Unregister<LogonTask>();
+    }
     }
 }
