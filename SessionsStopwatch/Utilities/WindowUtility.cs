@@ -69,4 +69,17 @@ public static class WindowUtility {
         
         window.Position = targetPoint;
     }
+
+    public static bool CloseFirst<T>() where T : Window{
+        var lifetime = AppUtility.GetLifetimeAsClassicDesktop();
+
+        Window? window = lifetime.Windows.FirstOrDefault(x => x.GetType() == typeof(T));
+        
+        if (window != null) {
+            window.Close();
+            return true;
+        }
+
+        return false;
+    }
 }
