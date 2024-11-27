@@ -10,7 +10,8 @@ public partial class Settings : ObservableObject {
     private const string SettingsFileName = "settings.json";
     
     [ObservableProperty]
-    private bool createLogonTask;
+    private bool createStartOnLogonTask;
+
 
     public static Settings TryDeserialize() {
         var lifetime = AppUtility.TryGetLifetimeAsClassicDesktop();
