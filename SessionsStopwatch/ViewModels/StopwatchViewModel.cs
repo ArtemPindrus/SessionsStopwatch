@@ -26,11 +26,20 @@ public partial class StopwatchViewModel : ViewModelBase {
         
         //TODO: unregister if view changes
         stopwatch.OnElapsedUpdated += OnElapsedUpdated;
+        stopwatch.PropertyChanged += StopwatchOnPropertyChanged;
 
         changeStateCommand = ResumeCommand;
         changeStateIcon = resumeIcon;
         
         Resume();
+    }
+
+    private void StopwatchOnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
+        if (e.PropertyName == nameof(stopwatch.State)) {
+            if (stopwatch.State == Stopwatch.StopwatchState.Stopped) ChangeStateCommand = ResumeCommand;
+            else if (stopwatch.State == Stopwatch.StopwatchState.Running) ChangeStateCommand = PauseCommand;
+            else if (stopwatch.State == Stopwatch.StopwatchState.Paused) ChangeStateCommand = ResumeCommand;
+        }
     }
 
     partial void OnChangeStateCommandChanged(ICommand value) {
@@ -45,18 +54,15 @@ public partial class StopwatchViewModel : ViewModelBase {
     [RelayCommand]
     private void Pause() {
         stopwatch.Pause();
-        ChangeStateCommand = ResumeCommand;
     }
 
     [RelayCommand]
     private void Resume() {
         stopwatch.Resume();
-        ChangeStateCommand = PauseCommand;
     }
 
     [RelayCommand]
     private void Stop() {
         stopwatch.Stop();
-        ChangeStateCommand = ResumeCommand;
     }
 }
