@@ -53,7 +53,7 @@ public partial class App : Application {
             mainWindow.PlaceAtCorner(WindowUtility.Edge.Bottom | WindowUtility.Edge.Right);
         }
 
-        StartStopwatchRestartServer();
+        if (!Design.IsDesignMode) StartStopwatchRestartServer();
 
         base.OnFrameworkInitializationCompleted();
     }
