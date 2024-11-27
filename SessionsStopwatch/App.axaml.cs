@@ -10,6 +10,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using SessionsStopwatch.Models;
+using SessionsStopwatch.Models.Reminding;
 using SessionsStopwatch.Utilities;
 using SessionsStopwatch.ViewModels;
 using SessionsStopwatch.Views;
@@ -18,9 +19,9 @@ using Stopwatch = SessionsStopwatch.Models.Stopwatch;
 namespace SessionsStopwatch;
 
 public partial class App : Application {
-    public static Settings? AppSettings;
     public static readonly Stopwatch Stopwatch = new();
     
+    public static Settings? AppSettings;
     public static RemindersManager RemindersManager;
     
     public override void Initialize()
@@ -63,7 +64,7 @@ public partial class App : Application {
     
     private async void StartStopwatchRestartServer() {
         while (true) {
-            await using var server = new NamedPipeServerStream("RestartPipe", PipeDirection.InOut, 1, PipeTransmissionMode.Message);
+            await using var server = new NamedPipeServerStream("RestartPipe", PipeDirection.InOut, 2, PipeTransmissionMode.Message);
             
             await server.WaitForConnectionAsync();
             using var reader = new StreamReader(server);
