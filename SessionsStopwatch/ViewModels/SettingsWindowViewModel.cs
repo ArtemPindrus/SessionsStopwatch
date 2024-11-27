@@ -1,8 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Avalonia.Controls.ApplicationLifetimes;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SessionsStopwatch.Models;
+using SessionsStopwatch.Models.Reminding;
+using SessionsStopwatch.ViewModels.Reminders;
 using SessionsStopwatch.Views;
 
 namespace SessionsStopwatch.ViewModels;
