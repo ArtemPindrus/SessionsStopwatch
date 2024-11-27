@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
+using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -60,10 +61,10 @@ public partial class App : Application {
     private async void StartStopwatchRestartServer() {
         while (true) {
             await using var server = new NamedPipeServerStream("RestartPipe", PipeDirection.InOut, 1, PipeTransmissionMode.Message);
-
+            
             await server.WaitForConnectionAsync();
-
             using var reader = new StreamReader(server);
+            
             string? message = await reader.ReadLineAsync();
 
             if (message == "RestartStopwatch") {
