@@ -13,6 +13,17 @@ using SessionsStopwatch.Views;
 namespace SessionsStopwatch.ViewModels;
 
 public partial class SettingsWindowViewModel : ViewModelBase {
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(AddReminderViewModel))]
+    private Type? reminderTypeSelector;
+
+    public ViewModelBase AddReminderViewModel {
+        get {
+            if (ReminderTypeSelector == typeof(OneTimeReminder)) return new AddOneTimeReminderVM();
+            else throw new NotSupportedException();
+        }
+    }
+    
     public bool CreateStartOnLogonTask {
         get => App.AppSettings.CreateStartOnLogonTask;
         set => App.AppSettings.CreateStartOnLogonTask = value;
