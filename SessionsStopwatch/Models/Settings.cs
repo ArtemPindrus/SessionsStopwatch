@@ -35,7 +35,6 @@ public partial class Settings : ObservableObject {
     }
 
     private void LifetimeOnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e) {
-        //TODO: serialize
         using StreamWriter writer = new(SettingsFileName);
         
         string jsonStr = JsonSerializer.Serialize(this);
