@@ -18,5 +18,13 @@ public partial class SettingsWindow : Window {
             .ToArray();
         AddReminderTypeSelector.ItemsSource = items;
     }
+
+    private void RemindersListOnKeyDown(object? sender, KeyEventArgs e) {
+        if (e.Key == Key.X && sender is ListBox list) {
+            if (list.SelectedItem is Reminder reminder) {
+                App.RemindersManager.RemoveReminder(reminder);
+                App.RemindersManager.SerializeToDefaultFile();
+            }
+        }
     }
 }
