@@ -4,13 +4,23 @@ using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SessionsStopwatch.Models;
 
-public class Stopwatch {
+public partial class Stopwatch : ObservableObject {
+    public enum StopwatchState {
+        Stopped,
+        Running,
+        Paused
+    }
+    
     private readonly DispatcherTimer timer;
 
     private TimeSpan elapsed;
+
+    [ObservableProperty]
+    private StopwatchState state = StopwatchState.Stopped;
 
     public event Action? OnElapsedUpdated;
 
@@ -21,7 +31,6 @@ public class Stopwatch {
             OnElapsedUpdated?.Invoke();
         }
     }
-    public bool IsEnabled { get; private set; }
 
     public Stopwatch() {
         timer = new() {
@@ -32,18 +41,21 @@ public class Stopwatch {
 
     public void Resume() {
         timer.Start();
-        IsEnabled = true;
+
+        State = StopwatchState.Running;
     }
 
     public void Pause() {
         timer.Stop();
-        IsEnabled = false;
+        
+        State = StopwatchState.Paused;
     }
 
     public void Stop() {
         timer.Stop();
         Elapsed = TimeSpan.Zero;
-        IsEnabled = false;
+        
+        State = StopwatchState.Stopped;
     }
 
     private void OnSecondPassed(object? sender, EventArgs e) {
