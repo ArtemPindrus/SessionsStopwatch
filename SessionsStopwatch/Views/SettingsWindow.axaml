@@ -2,10 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="using:System"
         xmlns:viewModels="clr-namespace:SessionsStopwatch.ViewModels"
+        xmlns:reminding="clr-namespace:SessionsStopwatch.Models.Reminding"
+        xmlns:reminderVMs="clr-namespace:SessionsStopwatch.ViewModels.Reminders"
+        xmlns:remindersViews="clr-namespace:SessionsStopwatch.Views.Reminders"
         mc:Ignorable="d" 
-        d:DesignWidth="400" d:DesignHeight="90"
-        Width="400" Height="90"
+        d:DesignWidth="400" d:DesignHeight="300"
+        Width="400" Height="300"
         x:Class="SessionsStopwatch.Views.SettingsWindow"
         x:DataType="viewModels:SettingsWindowViewModel"
         
@@ -18,6 +22,12 @@
         <viewModels:SettingsWindowViewModel/>
     </Design.DataContext>
     
+    <Window.DataTemplates>
+        <DataTemplate DataType="{x:Type reminderVMs:AddOneTimeReminderVM}">
+            <remindersViews:AddOneTimeReminder/>
+        </DataTemplate>
+    </Window.DataTemplates>
+    
     <Grid RowDefinitions="20, *">
         <Border Background="{StaticResource HeaderBrush}">
             <StackPanel Orientation="Horizontal"
@@ -28,10 +38,39 @@
             </StackPanel>
         </Border>
         <Border Grid.Row="1" Background="{StaticResource ContentBrush}">
-            <StackPanel Orientation="Vertical" Margin="5">
-                <CheckBox IsChecked="{Binding CreateStartOnLogonTask}">Create start on logon task</CheckBox>
-                <CheckBox IsChecked="{Binding CreateRestartOnLogonTask}">Create restart stopwatch on logon task</CheckBox>
-            </StackPanel>
+            <ScrollViewer>
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <CheckBox IsChecked="{Binding CreateStartOnLogonTask}">Create start on logon task</CheckBox>
+                    <CheckBox IsChecked="{Binding CreateRestartOnLogonTask}">Create restart stopwatch on logon task</CheckBox>
+                    
+                    <ListBox ItemsSource="{Binding Reminders}"
+                             KeyDown="RemindersListOnKeyDown"
+                             Background="{StaticResource HeaderBrush}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type reminding:OneTimeReminder}">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock>Time:</TextBlock>
+                                    <TextBox Text="{Binding Time}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                
+                    <ComboBox Name="AddReminderTypeSelector" 
+                              Margin="0,5,0,0"
+                              Width="180" 
+                              SelectedItem="{Binding ReminderTypeSelector}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="system:Type">
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                
+                    <ContentControl 
+                        Content="{Binding AddReminderViewModel}"/>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
     </Grid>
 </Window>
