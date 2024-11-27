@@ -1,0 +1,29 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:SessionsStopwatch.ViewModels"
+        mc:Ignorable="d" 
+        d:DesignWidth="150" d:DesignHeight="60"
+        Width="150" Height="60"
+        x:Class="SessionsStopwatch.Views.RemindWindow"
+        x:DataType="viewModels:RemindWindowViewModel"
+        
+        Topmost="True"
+        CanResize="False"
+        SystemDecorations="None">
+        <Grid RowDefinitions="20,*">
+                <Border Background="{StaticResource HeaderBrush}">
+                        <StackPanel HorizontalAlignment="Right">
+                                <Button Theme="{StaticResource HeaderButton}"
+                                        Content="X"
+                                        Command="{Binding CloseCommand}"/>
+                        </StackPanel>
+                </Border>
+                <Border Grid.Row="1" Background="{StaticResource ContentBrush}">
+                        <TextBlock VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                Text="{Binding ReminderText}"/>
+                </Border>
+        </Grid>
+</Window>
