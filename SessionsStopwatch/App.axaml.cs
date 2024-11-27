@@ -21,6 +21,8 @@ public partial class App : Application {
     public static Settings? AppSettings;
     public static readonly Stopwatch Stopwatch = new();
     
+    public static RemindersManager RemindersManager;
+    
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -31,6 +33,7 @@ public partial class App : Application {
         if (!Design.IsDesignMode 
             && Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1) Environment.Exit(0);
 
+        RemindersManager = RemindersManager.TryDeserialize(Stopwatch);
         AppSettings = Settings.TryDeserialize();
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
