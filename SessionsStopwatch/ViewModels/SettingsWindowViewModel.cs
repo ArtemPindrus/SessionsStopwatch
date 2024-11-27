@@ -18,6 +18,8 @@ public partial class SettingsWindowViewModel : ViewModelBase {
         set => App.AppSettings.CreateRestartOnLogonTask = value;
     }
 
+    public ObservableCollection<Reminder> Reminders => App.RemindersManager.Reminders;
+
     public SettingsWindowViewModel() {
         App.AppSettings.PropertyChanged += AppSettingsOnPropertyChanged;
     }
