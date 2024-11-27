@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
+using SessionsStopwatch.Models.SchedulerTasks;
 using SessionsStopwatch.Utilities;
 
 namespace SessionsStopwatch.Models;
@@ -12,6 +13,8 @@ public partial class Settings : ObservableObject {
     [ObservableProperty]
     private bool createStartOnLogonTask;
 
+    [ObservableProperty]
+    private bool createRestartOnLogonTask;
 
     public static Settings TryDeserialize() {
         var lifetime = AppUtility.TryGetLifetimeAsClassicDesktop();
@@ -46,5 +49,9 @@ public partial class Settings : ObservableObject {
         if (value) TaskManager.Register<LogonTask>();
         else TaskManager.Unregister<LogonTask>();
     }
+
+    partial void OnCreateRestartOnLogonTaskChanged(bool value) {
+        if (value) TaskManager.Register<RestartOnLogonTask>();
+        else TaskManager.Unregister<RestartOnLogonTask>();
     }
 }

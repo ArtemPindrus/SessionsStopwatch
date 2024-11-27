@@ -11,6 +11,9 @@ public partial class SettingsWindowViewModel : ViewModelBase {
     public bool CreateLogonTask {
         get => App.AppSettings.CreateLogonTask;
         set => App.AppSettings.CreateLogonTask = value;
+    public bool CreateRestartOnLogonTask {
+        get => App.AppSettings.CreateRestartOnLogonTask;
+        set => App.AppSettings.CreateRestartOnLogonTask = value;
     }
 
     public SettingsWindowViewModel() {
