@@ -51,8 +51,10 @@ public static class WindowUtility {
             PixelPoint targetPos = currentPos;
 
             double scaling = window.DesktopScaling;
-            int maxXPos = screenRect.Width - (int)(window.FrameSize.Value.Width * scaling);
-            int maxYPos = screenRect.Height - (int)(window.FrameSize.Value.Height * scaling);
+            (double width, double height) = window.TryGetScaledFrameSize();
+            
+            int maxXPos = screenRect.Width - (int)width;
+            int maxYPos = screenRect.Height - (int)height;
 
 
             if (currentPos.X < 0) targetPos = targetPos.WithX(0);
@@ -79,8 +81,7 @@ public static class WindowUtility {
         
         PixelRect workingArea = primaryScreen.WorkingArea;
 
-        double width = frameSize.Width * window.DesktopScaling;
-        double height = frameSize.Height * window.DesktopScaling;
+        (double width, double height) = window.TryGetScaledFrameSize();
 
         
         PixelPoint targetPoint = new(0, 0);
