@@ -24,15 +24,16 @@ public partial class MainWindowViewModel : ViewModelBase {
 
     [RelayCommand]
     private void OpenSettingsWindow() {
-        var lifetime = (IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime;
-        
-        if (lifetime.Windows.Any(x => x.GetType() == typeof(SettingsWindow))) return;
-        
-        SettingsWindow window = new() {
-            DataContext = new SettingsWindowViewModel()
-        };
-            
-        window.Show();
+        if (WindowUtility.FirstOrDefault<SettingsWindow>() is { } settingsWindow) {
+            settingsWindow.Close();
+        }
+        else {
+            SettingsWindow window = new() {
+                DataContext = new SettingsWindowViewModel()
+            };
+
+            window.Show();
+        }
     }
     
     [RelayCommand]
