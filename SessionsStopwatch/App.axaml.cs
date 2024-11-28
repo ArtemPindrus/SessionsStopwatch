@@ -21,9 +21,8 @@ namespace SessionsStopwatch;
 public partial class App : Application {
     private static Settings? appSettings;
     public static readonly Stopwatch Stopwatch = new();
-    
-    public static Settings? AppSettings;
-    public static RemindersManager RemindersManager;
+    public static readonly RemindersManager RemindersManager = RemindersManager.TryDeserialize(Stopwatch);
+
     public static Settings AppSettings {
         get {
             if (appSettings == null) {
@@ -43,9 +42,6 @@ public partial class App : Application {
     {
         if (!Design.IsDesignMode 
             && Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1) Environment.Exit(0);
-
-        RemindersManager = RemindersManager.TryDeserialize(Stopwatch);
-        AppSettings = Settings.TryDeserialize();
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
