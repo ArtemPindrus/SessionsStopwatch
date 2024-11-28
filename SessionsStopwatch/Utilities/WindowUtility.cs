@@ -16,6 +16,25 @@ public static class WindowUtility {
         Right = 1 << 2,
         Bottom = 1 << 3,
     }
+
+    /// <summary>
+    /// Tries to get Window's frame size scaled by desktop scaling.
+    /// If FrameSize isn't assigned falls back to Window's scaled width and height.
+    /// </summary>
+    /// <param name="window">Measured Window.</param>
+    /// <returns></returns>
+    public static (double width, double height) TryGetScaledFrameSize(this Window window) {
+        double scaling = window.DesktopScaling;
+        
+        Size? frameSize = window.FrameSize;
+        double width = frameSize?.Width ?? window.Width;
+        double height = frameSize?.Height ?? window.Height;
+
+        width *= scaling;
+        height *= scaling;
+
+        return (width, height);
+    }
     
     public static void BoundToScreen(this Window window, bool toBound = true) {
         if (toBound) window.PointerReleased += Impl;
