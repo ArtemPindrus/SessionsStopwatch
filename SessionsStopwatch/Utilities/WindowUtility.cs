@@ -3,8 +3,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using SessionsStopwatch.Views;
-using Tmds.DBus.Protocol;
+using Avalonia.Platform;
 
 namespace SessionsStopwatch.Utilities;
 
