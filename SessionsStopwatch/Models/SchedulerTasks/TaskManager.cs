@@ -9,7 +9,7 @@ namespace SessionsStopwatch.Models.SchedulerTasks;
 
 public static class TaskManager {
     public static readonly string ExecutableName = $"{Process.GetCurrentProcess().ProcessName}.exe";
-    public static readonly string ExecutableDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+    public static readonly string ExecutableDirectory = AppContext.BaseDirectory;
     private static readonly Dictionary<Type, TaskBase> instantiatedTasks = new();
 
     public static void Register<T>() where T : TaskBase, new() {
