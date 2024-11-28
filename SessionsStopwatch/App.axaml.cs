@@ -19,10 +19,20 @@ using Stopwatch = SessionsStopwatch.Models.Stopwatch;
 namespace SessionsStopwatch;
 
 public partial class App : Application {
+    private static Settings? appSettings;
     public static readonly Stopwatch Stopwatch = new();
     
     public static Settings? AppSettings;
     public static RemindersManager RemindersManager;
+    public static Settings AppSettings {
+        get {
+            if (appSettings == null) {
+                appSettings = Settings.TryDeserialize();
+            }
+
+            return appSettings;
+        }
+    }
     
     public override void Initialize()
     {
