@@ -50,7 +50,6 @@ public static class WindowUtility {
             PixelPoint currentPos = window.Position;
             PixelPoint targetPos = currentPos;
 
-            double scaling = window.DesktopScaling;
             (double width, double height) = window.TryGetScaledFrameSize();
             
             int maxXPos = screenRect.Width - (int)width;
@@ -97,11 +96,17 @@ public static class WindowUtility {
         
         window.Position = targetPoint;
     }
-
-    public static bool CloseFirst<T>() where T : Window{
+    
+    public static T? FirstOrDefault<T>() where T : Window {
         var lifetime = AppUtility.GetLifetimeAsClassicDesktop();
 
-        Window? window = lifetime.Windows.FirstOrDefault(x => x.GetType() == typeof(T));
+        T? window = (T?)lifetime.Windows.FirstOrDefault(x => x.GetType() == typeof(T));
+
+        return window;
+    }
+ 
+    public static bool CloseFirst<T>() where T : Window{
+        Window? window = FirstOrDefault<T>();
         
         if (window != null) {
             window.Close();
