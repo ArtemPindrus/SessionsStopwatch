@@ -15,10 +15,11 @@ public partial class SettingsWindow : Window {
 
         Type baseType = typeof(Reminder);
 
-        var items = Assembly.GetExecutingAssembly()
+        List<Type?> items = Assembly.GetExecutingAssembly()
             .GetTypes()
             .Where(x => x != baseType && x.IsAssignableTo(typeof(Reminder)))
-            .ToArray();
+            .ToList<Type?>();
+        items.Add(null);
         AddReminderTypeSelector.ItemsSource = items;
     }
 
