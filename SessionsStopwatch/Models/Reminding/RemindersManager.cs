@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -16,7 +17,11 @@ public class RemindersManager {
     private Stopwatch? stopwatch;
 
     private Stopwatch Stopwatch {
-        get => stopwatch;
+        get {
+            if (stopwatch == null) throw new Exception("Stopwatch wasn't assigned!");
+            
+            return stopwatch;
+        }
         set {
             if (stopwatch != null) {
                 stopwatch.OnElapsedUpdated -= StopwatchOnElapsedUpdated;
@@ -26,7 +31,7 @@ public class RemindersManager {
             stopwatch.OnElapsedUpdated += StopwatchOnElapsedUpdated;
         }
     }
-    
+
     public RemindersManager() {
         Reminders = new();
 
