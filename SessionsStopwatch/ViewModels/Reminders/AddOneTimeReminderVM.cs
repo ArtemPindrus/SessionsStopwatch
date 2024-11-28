@@ -5,7 +5,7 @@ using SessionsStopwatch.Models.Reminding;
 
 namespace SessionsStopwatch.ViewModels.Reminders;
 
-public partial class AddOneTimeReminderVM : ViewModelBase {
+public partial class AddOneTimeReminderVM : AddReminderBaseVM {
     private TimeSpan lastParsedTime;
     
     [NotifyCanExecuteChangedFor(nameof(AddCommand))]
@@ -17,6 +17,7 @@ public partial class AddOneTimeReminderVM : ViewModelBase {
         OneTimeReminder reminder = new(lastParsedTime);
         
         App.RemindersManager.AddReminder(reminder);
+        OnAddedReminder();
     }
 
     private bool CanAdd() {
