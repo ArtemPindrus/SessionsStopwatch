@@ -7,22 +7,19 @@ using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SessionsStopwatch.Models.Reminding;
+using SessionsStopwatch.Utilities;
 using SessionsStopwatch.ViewModels.Reminders;
 using SessionsStopwatch.Views;
+using SessionsStopwatch.Views.Reminders;
 
 namespace SessionsStopwatch.ViewModels;
 
 public partial class SettingsWindowViewModel : ViewModelBase {
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(AddReminderViewModel))]
     private Type? reminderTypeSelector;
 
-    public ViewModelBase AddReminderViewModel {
-        get {
-            if (ReminderTypeSelector == typeof(OneTimeReminder)) return new AddOneTimeReminderVM();
-            else throw new NotSupportedException();
-        }
-    }
+    [ObservableProperty] 
+    private AddReminderBaseVM? addReminderViewModel;
     
     public bool CreateStartOnLogonTask {
         get => App.AppSettings.CreateStartOnLogonTask;
@@ -40,14 +37,26 @@ public partial class SettingsWindowViewModel : ViewModelBase {
         App.AppSettings.PropertyChanged += AppSettingsOnPropertyChanged;
     }
 
+    partial void OnReminderTypeSelectorChanged(Type? value) {
+        if (AddReminderViewModel != null) AddReminderViewModel.AddedReminder -= OnAddedReminder;
+
+        if (value == null) AddReminderViewModel = null;
+        else if (value == typeof(OneTimeReminder)) AddReminderViewModel = new AddOneTimeReminderVM();
+        else throw new NotImplementedException();
+        
+        if (AddReminderViewModel != null) AddReminderViewModel.AddedReminder += OnAddedReminder;
+    }
+
+    private void OnAddedReminder() {
+        ReminderTypeSelector = null;
+    }
+
     private void AppSettingsOnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
         OnPropertyChanged(e.PropertyName);
     }
 
     [RelayCommand]
     private void CloseWindow() {
-        var lifetime = (IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime;
-        
-        lifetime.Windows.First(x => x.GetType() == typeof(SettingsWindow)).Close();
+        WindowUtility.CloseFirst<SettingsWindow>();
     }
 }
