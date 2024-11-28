@@ -17,7 +17,7 @@ public static class TaskManager {
         
         Unregister(taskBase);
         
-        taskBase.AddTask();
+        taskBase.RegisterTask();
     }
 
     public static void Unregister(TaskBase taskBase) {
