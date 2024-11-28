@@ -38,8 +38,7 @@ public partial class MainWindowViewModel : ViewModelBase {
     
     [RelayCommand]
     private void Close() {
-        IClassicDesktopStyleApplicationLifetime lifetime = (IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime;
-        lifetime.Shutdown();
+        AppUtility.GetLifetimeAsClassicDesktop().Shutdown();
     }
 
     [RelayCommand]
