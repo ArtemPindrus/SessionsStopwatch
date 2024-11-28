@@ -3,15 +3,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:remindersVMs="clr-namespace:SessionsStopwatch.ViewModels.Reminders"
-             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
-             Width="400" Height="200"
-             Padding="8"
+             mc:Ignorable="d"
+             Width="400" Height="100"
+             Padding="12"
              x:Class="SessionsStopwatch.Views.Reminders.AddOneTimeReminder"
              x:DataType="remindersVMs:AddOneTimeReminderVM">
     <StackPanel Spacing="10">
         <StackPanel VerticalAlignment="Top"
                     Orientation="Horizontal" Spacing="3">
-            <TextBlock>Time:</TextBlock>
+            <TextBlock VerticalAlignment="Center">Time:</TextBlock>
             <TextBox Height="30" MinHeight="10"
                      FontSize="10"
                      TextAlignment="Center"
