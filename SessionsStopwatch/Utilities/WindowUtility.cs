@@ -41,7 +41,11 @@ public static class WindowUtility {
         else window.PointerReleased -= Impl;
 
         void Impl(object? sender, PointerReleasedEventArgs e) {
-            PixelRect screenRect = window.Screens.Primary.WorkingArea; // TODO: get the screen the app is on
+            // TODO: specify screen
+            Screen? primaryScreen = window.Screens.Primary;
+            if (primaryScreen == null) return;
+            
+            PixelRect screenRect = primaryScreen.WorkingArea; 
 
             PixelPoint currentPos = window.Position;
             PixelPoint targetPos = currentPos;
@@ -70,8 +74,10 @@ public static class WindowUtility {
     }
 
     public static void PlaceAtCorner(this Window window, Edge edges) {
-        PixelRect workingArea = window.Screens.Primary.WorkingArea;
-        Size frameSize = window.FrameSize.Value;
+        Screen? primaryScreen = window.Screens.Primary;
+        if (primaryScreen == null) return;
+        
+        PixelRect workingArea = primaryScreen.WorkingArea;
 
         double width = frameSize.Width * window.DesktopScaling;
         double height = frameSize.Height * window.DesktopScaling;
