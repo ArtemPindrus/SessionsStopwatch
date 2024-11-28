@@ -11,6 +11,7 @@
         CanResize="False"
         Topmost="True"
         x:DataType="vm:MainWindowViewModel"
+        ShowInTaskbar="False"
 
         IsVisible="{Binding WindowIsVisible}"
         

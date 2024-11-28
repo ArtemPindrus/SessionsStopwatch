@@ -8,7 +8,6 @@
         xmlns:reminderVMs="clr-namespace:SessionsStopwatch.ViewModels.Reminders"
         xmlns:remindersViews="clr-namespace:SessionsStopwatch.Views.Reminders"
         mc:Ignorable="d" 
-        d:DesignWidth="400" d:DesignHeight="300"
         Width="400" Height="300"
         x:Class="SessionsStopwatch.Views.SettingsWindow"
         x:DataType="viewModels:SettingsWindowViewModel"
@@ -43,32 +42,50 @@
                     <CheckBox IsChecked="{Binding CreateStartOnLogonTask}">Create start on logon task</CheckBox>
                     <CheckBox IsChecked="{Binding CreateRestartOnLogonTask}">Create restart stopwatch on logon task</CheckBox>
                     
+                    <Border Background="{StaticResource HeaderBrush}"
+                            Padding="5">
+                        <TextBlock FontWeight="Bold">REMINDERS:</TextBlock>
+                    </Border>
                     <ListBox ItemsSource="{Binding Reminders}"
                              KeyDown="RemindersListOnKeyDown"
                              Background="{StaticResource HeaderBrush}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type reminding:OneTimeReminder}">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
-                                    <TextBlock>Time:</TextBlock>
+                                    <TextBlock VerticalAlignment="Center">Time:</TextBlock>
                                     <TextBox Text="{Binding Time}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 
-                    <ComboBox Name="AddReminderTypeSelector" 
-                              Margin="0,5,0,0"
-                              Width="180" 
-                              SelectedItem="{Binding ReminderTypeSelector}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate DataType="system:Type">
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                    <Border Margin="0,5,0,0"
+                            BorderBrush="{StaticResource HeaderBrush}"
+                            BorderThickness="3"
+                            Padding="5"
+                            MinHeight="90">
+                        <StackPanel>
+                            <TextBlock Margin="0,0,0,5"
+                                       FontWeight="Bold">
+                                Add new reminders:
+                            </TextBlock>
+                            
+                            <ComboBox Name="AddReminderTypeSelector" 
+                                      Width="180"
+                                      PlaceholderText="Reminder type"
+                                      SelectedItem="{Binding ReminderTypeSelector}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="system:Type">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                 
-                    <ContentControl 
-                        Content="{Binding AddReminderViewModel}"/>
+                            <ContentControl 
+                                Content="{Binding AddReminderViewModel}">
+                            </ContentControl>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </ScrollViewer>
         </Border>
