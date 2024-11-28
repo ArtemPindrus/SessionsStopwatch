@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SessionsStopwatch.Utilities;
 using SessionsStopwatch.Views;
 
 namespace SessionsStopwatch.ViewModels;
