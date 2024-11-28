@@ -1,4 +1,6 @@
-﻿namespace SessionsStopwatch.Models.SchedulerTasks;
+﻿using Microsoft.Win32.TaskScheduler;
+
+namespace SessionsStopwatch.Models.SchedulerTasks;
 
 public abstract class TaskBase {
     public abstract string TaskName { get; }
