@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Microsoft.Win32.TaskScheduler;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace SessionsStopwatch.Models.SchedulerTasks;
 
