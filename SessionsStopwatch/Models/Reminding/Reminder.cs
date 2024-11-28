@@ -8,6 +8,7 @@ namespace SessionsStopwatch.Models.Reminding;
 [JsonDerivedType(typeof(OneTimeReminder), "oneTime")]
 public class Reminder {
     private TimeSpan time;
+    // TODO: play sound
 
     public TimeSpan Time {
         get => time;
@@ -29,7 +30,7 @@ public class Reminder {
         throw new NotImplementedException();
     }
 
-    public virtual void Reset() {
+    protected virtual void Reset() {
         throw new NotImplementedException();
     }
 }
