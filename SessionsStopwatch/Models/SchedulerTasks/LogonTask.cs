@@ -6,13 +6,17 @@ namespace SessionsStopwatch.Models.SchedulerTasks;
 public class LogonTask : TaskBase {
     public override string TaskName { get; } = "Start SessionsStopwatch";
 
-    public override void AddTask() {
-        TaskService.Instance.AddTask(TaskName, 
-            new SessionStateChangeTrigger() {
-                StateChange = TaskSessionStateChangeType.SessionUnlock, 
-                UserId = WindowsIdentity.GetCurrent().Name
-            }, 
-            new ExecAction(TaskManager.ExecutableName, null, TaskManager.ExecutableDirectory)
-        );
+    protected override TaskDefinition CreateTaskDefinition() {
+        var taskDefinition = TaskService.Instance.NewTask();
+        taskDefinition.Triggers.Add(new SessionStateChangeTrigger() {
+            StateChange = TaskSessionStateChangeType.SessionUnlock,
+            UserId = WindowsIdentity.GetCurrent().Name
+        });
+        taskDefinition.Actions.Add(new ExecAction(TaskManager.ExecutableName, null, TaskManager.ExecutableDirectory));
+        
+        taskDefinition.Settings.DisallowStartIfOnBatteries = false;
+        taskDefinition.Settings.StopIfGoingOnBatteries = false;
+
+        return taskDefinition;
     }
 }
