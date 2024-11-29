@@ -1,37 +1,41 @@
 ﻿using System;
 using System.Text.Json.Serialization;
-using SessionsStopwatch.ViewModels;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SessionsStopwatch.Models.Reminding;
 
-[JsonDerivedType(typeof(Reminder), "base")]
+// TODO: describe process of adding new Reminder types.
 [JsonDerivedType(typeof(OneTimeReminder), "oneTime")]
 [JsonDerivedType(typeof(IntervalReminder), "interval")]
-public class Reminder {
-    private TimeSpan time;
+public abstract partial class Reminder : ObservableObject {
     // TODO: play sound
 
-    public TimeSpan Time {
-        get => time;
-        set {
-            time = value;
-            Reset();
-        }
-    }
+    
+    [ObservableProperty]
+    private TimeSpan time;
 
     [JsonConstructor]
     protected Reminder(TimeSpan time) {
         Time = time;
     }
 
-    public virtual bool CheckNeedsToRemind(TimeSpan timeElapsed) => false;
+    public override bool Equals(object? obj) {
+        if (obj == null) return false;
 
-    public virtual void Remind() {
-        // let derived implement
-        throw new NotImplementedException();
+        return EqualsTo(obj);
     }
 
-    public virtual void Reset() {
-        throw new NotImplementedException();
+    public override int GetHashCode() => Time.GetHashCode();
+
+    public abstract bool CheckNeedsToRemind(TimeSpan timeElapsed);
+
+    public abstract void Remind();
+
+    public abstract void Reset();
+
+    protected abstract bool EqualsTo(object obj);
+
+    partial void OnTimeChanged(TimeSpan value) {
+        Reset();
     }
 }
