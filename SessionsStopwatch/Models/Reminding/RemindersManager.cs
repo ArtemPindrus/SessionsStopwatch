@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -37,13 +39,7 @@ public class RemindersManager {
 
         var lifetime = AppUtility.TryGetLifetimeAsClassicDesktop();
         if (lifetime != null) lifetime.Exit += LifetimeOnExit;
-    }
-
-    public RemindersManager(ObservableCollection<Reminder> reminders) {
-        Reminders = reminders;
         
-        var lifetime = AppUtility.TryGetLifetimeAsClassicDesktop();
-        if (lifetime != null) lifetime.Exit += LifetimeOnExit;
         App.Stopwatch.PropertyChanged += StopwatchOnPropertyChanged;
     }
 
