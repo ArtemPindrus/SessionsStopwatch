@@ -11,16 +11,10 @@ public partial class AddOneTimeReminderVM : AddReminderBaseVM {
     [NotifyCanExecuteChangedFor(nameof(AddCommand))]
     [ObservableProperty] 
     private string? timeTextBox;
-    
-    [RelayCommand(CanExecute = nameof(CanAdd))]
-    private void Add() {
-        OneTimeReminder reminder = new(lastParsedTime);
-        
-        App.RemindersManager.AddReminder(reminder);
-        OnAddedReminder();
-    }
 
-    private bool CanAdd() {
+    protected override Reminder CreateReminder() => new OneTimeReminder(lastParsedTime);
+
+    protected override bool CanAdd() {
         return TimeSpan.TryParse(TimeTextBox, out lastParsedTime);
     }
 }
