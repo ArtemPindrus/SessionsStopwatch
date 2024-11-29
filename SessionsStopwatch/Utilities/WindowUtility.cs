@@ -96,6 +96,11 @@ public static class WindowUtility {
         window.Position = targetPoint;
     }
     
+    /// <summary>
+    /// Gets first Window of T type.
+    /// </summary>
+    /// <typeparam name="T">Window's Type.</typeparam>
+    /// <returns>First found Window of T type or null if not found.</returns>
     public static T? FirstOrDefault<T>() where T : Window {
         var lifetime = AppUtility.GetLifetimeAsClassicDesktop();
 
@@ -104,6 +109,11 @@ public static class WindowUtility {
         return window;
     }
  
+    /// <summary>
+    /// Closes the first found Window of type T.
+    /// </summary>
+    /// <typeparam name="T">Window's Type.</typeparam>
+    /// <returns>Whether Window was found and closed.</returns>
     public static bool CloseFirst<T>() where T : Window{
         Window? window = FirstOrDefault<T>();
         
