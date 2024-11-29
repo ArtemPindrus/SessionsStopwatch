@@ -11,7 +11,8 @@
         
         Topmost="True"
         CanResize="False"
-        SystemDecorations="None">
+        SystemDecorations="None"
+        KeyDown="InputElement_OnKeyDown">
         <Grid RowDefinitions="20,*">
                 <Border Background="{StaticResource HeaderBrush}">
                         <StackPanel HorizontalAlignment="Right">
