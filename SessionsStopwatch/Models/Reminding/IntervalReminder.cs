@@ -13,6 +13,10 @@ public class IntervalReminder : Reminder {
         
     }
 
+    public static bool operator ==(IntervalReminder a, IntervalReminder b) => a.Equals(b);
+
+    public static bool operator !=(IntervalReminder a, IntervalReminder b) => !a.Equals(b);
+
     public override void Remind() {
         RemindWindow remindWindow = new() {
             DataContext = new RemindWindowViewModel($"{Time} passed! ({remindedCount})")
@@ -35,4 +39,12 @@ public class IntervalReminder : Reminder {
     public override void Reset() {
         remindedCount = 0;
     }
+
+    public override bool Equals(object? obj) {
+        if (obj is not IntervalReminder other) return false;
+
+        return Time == other.Time;
+    }
+
+    public override int GetHashCode() => Time.GetHashCode();
 }
