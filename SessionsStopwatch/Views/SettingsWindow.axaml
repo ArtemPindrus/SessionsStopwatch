@@ -25,6 +25,9 @@
         <DataTemplate DataType="{x:Type reminderVMs:AddOneTimeReminderVM}">
             <remindersViews:AddOneTimeReminder/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type reminderVMs:AddIntervalReminderVM}">
+            <remindersViews:AddIntervalReminder/>
+        </DataTemplate>
     </Window.DataTemplates>
     
     <Grid RowDefinitions="20, *">
@@ -49,14 +52,20 @@
                     <ListBox ItemsSource="{Binding Reminders}"
                              KeyDown="RemindersListOnKeyDown"
                              Background="{StaticResource HeaderBrush}">
-                        <ListBox.ItemTemplate>
+                        <ListBox.DataTemplates>
                             <DataTemplate DataType="{x:Type reminding:OneTimeReminder}">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
                                     <TextBlock VerticalAlignment="Center">Time:</TextBlock>
                                     <TextBox Text="{Binding Time}"/>
                                 </StackPanel>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
+                            <DataTemplate DataType="reminding:IntervalReminder">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock VerticalAlignment="Center">Interval:</TextBlock>
+                                    <TextBox Text="{Binding Time}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.DataTemplates>
                     </ListBox>
                 
                     <Border Margin="0,5,0,0"
