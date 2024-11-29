@@ -55,12 +55,14 @@
                         <ListBox.DataTemplates>
                             <DataTemplate DataType="{x:Type reminding:OneTimeReminder}">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <CheckBox IsChecked="{Binding Enabled}"/>
                                     <TextBlock VerticalAlignment="Center">Time:</TextBlock>
                                     <TextBox Text="{Binding Time}"/>
                                 </StackPanel>
                             </DataTemplate>
                             <DataTemplate DataType="reminding:IntervalReminder">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <CheckBox IsChecked="{Binding Enabled}"/>
                                     <TextBlock VerticalAlignment="Center">Interval:</TextBlock>
                                     <TextBox Text="{Binding Time}"/>
                                 </StackPanel>
