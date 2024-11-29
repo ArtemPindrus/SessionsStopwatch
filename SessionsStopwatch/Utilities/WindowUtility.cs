@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Platform;
+using SessionsStopwatch.ViewModels;
 
 namespace SessionsStopwatch.Utilities;
 
@@ -108,6 +109,20 @@ public static class WindowUtility {
 
         return window;
     }
+
+    /// <summary>
+    /// Gets first found Window of T type with a given data context.
+    /// </summary>
+    /// <param name="dataContext">DataContext of searched Window.</param>
+    /// <typeparam name="T">Window's Type.</typeparam>
+    /// <returns>Window of T type and DataContext set to dataContext.</returns>
+    public static T? FirstOrDefault<T>(object dataContext) where T : Window {
+        var lifetime = AppUtility.GetLifetimeAsClassicDesktop();
+
+        T? window = (T?)lifetime.Windows.FirstOrDefault(x => x.GetType() == typeof(T) && x.DataContext == dataContext);
+
+        return window;
+    }
  
     /// <summary>
     /// Closes the first found Window of type T.
@@ -116,6 +131,23 @@ public static class WindowUtility {
     /// <returns>Whether Window was found and closed.</returns>
     public static bool CloseFirst<T>() where T : Window{
         Window? window = FirstOrDefault<T>();
+        
+        if (window != null) {
+            window.Close();
+            return true;
+        }
+
+        return false;
+    }
+    
+    /// <summary>
+    /// Closes the first found Window of type T and given DataContext.
+    /// </summary>
+    /// <param name="dataContext">DataContext of searched Window.</param>
+    /// <typeparam name="T">Window's Type.</typeparam>
+    /// <returns>Whether Window was found and closed.</returns>
+    public static bool CloseFirst<T>(object dataContext) where T : Window{
+        Window? window = FirstOrDefault<T>(dataContext);
         
         if (window != null) {
             window.Close();

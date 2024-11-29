@@ -13,6 +13,6 @@ public partial class RemindWindowViewModel : ViewModelBase {
     
     [RelayCommand]
     private void Close() {
-        WindowUtility.CloseFirst<RemindWindow>();
+        WindowUtility.CloseFirst<RemindWindow>(this);
     }
 }
