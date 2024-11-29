@@ -61,7 +61,10 @@ public class RemindersManager {
         return manager;
     }
 
-    public void AddReminder(Reminder reminder) => Reminders.Add(reminder);
+    public bool AddReminder(Reminder reminder) {
+        if (Reminders.Any(x => x.Equals(reminder))) return false;
+        
+        Reminders.Add(reminder);
 
     public void RemoveReminder(Reminder reminder) => Reminders.Remove(reminder);
 
