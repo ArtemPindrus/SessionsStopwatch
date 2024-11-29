@@ -31,7 +31,7 @@ public class Reminder {
         throw new NotImplementedException();
     }
 
-    protected virtual void Reset() {
+    public virtual void Reset() {
         throw new NotImplementedException();
     }
 }

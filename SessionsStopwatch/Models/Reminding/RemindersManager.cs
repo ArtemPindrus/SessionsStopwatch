@@ -44,6 +44,7 @@ public class RemindersManager {
         
         var lifetime = AppUtility.TryGetLifetimeAsClassicDesktop();
         if (lifetime != null) lifetime.Exit += LifetimeOnExit;
+        App.Stopwatch.PropertyChanged += StopwatchOnPropertyChanged;
     }
 
     public static RemindersManager TryDeserialize(Stopwatch stopwatch) {
@@ -67,6 +68,18 @@ public class RemindersManager {
     public void SerializeToDefaultFile() {
         string json = JsonSerializer.Serialize<RemindersManager>(this);
         File.WriteAllText(SerializedDataPath, json);
+    }
+
+    private void ResetAll() {
+        foreach (var reminder in Reminders) {
+            reminder.Reset();
+        }
+    }
+    
+    private void StopwatchOnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
+        if (e.PropertyName == nameof(App.Stopwatch.State)) {
+            if (App.Stopwatch.State == Stopwatch.StopwatchState.Stopped) ResetAll();
+        }
     }
 
     private void LifetimeOnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e) {

@@ -24,7 +24,7 @@ public class OneTimeReminder : Reminder {
         window.Show();
     }
 
-    protected override void Reset() {
+    public override void Reset() {
         remindedOnce = false;
     }
 }
