@@ -27,4 +27,17 @@ public class OneTimeReminder : Reminder {
     public override void Reset() {
         remindedOnce = false;
     }
+
+    public override bool Equals(object? obj) {
+        if (obj is not OneTimeReminder other) return false;
+
+        return Time == other.Time;
+    }
+
+    public override int GetHashCode() {
+        return Time.GetHashCode();
+    }
+
+    public static bool operator ==(OneTimeReminder a, OneTimeReminder b) => a.Equals(b);
+    public static bool operator !=(OneTimeReminder a, OneTimeReminder b) => !a.Equals(b);
 }
