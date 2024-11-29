@@ -65,8 +65,17 @@ public class RemindersManager {
         if (Reminders.Any(x => x.Equals(reminder))) return false;
         
         Reminders.Add(reminder);
+        
+        SerializeToDefaultFile();
+        
+        return true;
+    }
 
-    public void RemoveReminder(Reminder reminder) => Reminders.Remove(reminder);
+    public void RemoveReminder(Reminder reminder) {
+        Reminders.Remove(reminder);
+        
+        SerializeToDefaultFile();
+    }
 
     public void SerializeToDefaultFile() {
         string json = JsonSerializer.Serialize<RemindersManager>(this);
