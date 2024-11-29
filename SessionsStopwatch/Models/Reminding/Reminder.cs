@@ -6,6 +6,7 @@ namespace SessionsStopwatch.Models.Reminding;
 
 [JsonDerivedType(typeof(Reminder), "base")]
 [JsonDerivedType(typeof(OneTimeReminder), "oneTime")]
+[JsonDerivedType(typeof(IntervalReminder), "interval")]
 public class Reminder {
     private TimeSpan time;
     // TODO: play sound
