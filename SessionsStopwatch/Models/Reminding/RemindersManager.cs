@@ -96,6 +96,8 @@ public class RemindersManager {
     
     private void StopwatchOnElapsedUpdated() {
         foreach (var reminder in Reminders) {
+            if (!reminder.Enabled) return;
+            
             if (reminder.CheckNeedsToRemind(Stopwatch.Elapsed)) {
                 reminder.Remind();
             }

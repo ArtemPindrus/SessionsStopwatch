@@ -10,6 +10,8 @@ namespace SessionsStopwatch.Models.Reminding;
 public abstract partial class Reminder : ObservableObject {
     // TODO: play sound
 
+    [ObservableProperty]
+    private bool enabled;
     
     [ObservableProperty]
     private TimeSpan time;
