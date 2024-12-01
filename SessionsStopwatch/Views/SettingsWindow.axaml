@@ -45,6 +45,14 @@
                     <CheckBox IsChecked="{Binding CreateStartOnLogonTask}">Create start on logon task</CheckBox>
                     <CheckBox IsChecked="{Binding CreateRestartOnLogonTask}">Create restart stopwatch on logon task</CheckBox>
                     
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,5"
+                                Spacing="5"
+                                ToolTip.Tip="Overrides standard alarm when Reminder triggers.">
+                        <TextBlock VerticalAlignment="Center">Alarm Sound Path:</TextBlock>
+                        <TextBox Width="260" Text="{Binding AlarmSoundPath}"/>
+                    </StackPanel>
+                    
                     <Border Background="{StaticResource HeaderBrush}"
                             Padding="5">
                         <TextBlock FontWeight="Bold">REMINDERS:</TextBlock>

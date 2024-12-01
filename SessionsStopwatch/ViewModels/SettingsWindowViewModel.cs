@@ -20,6 +20,11 @@ public partial class SettingsWindowViewModel : ViewModelBase {
 
     [ObservableProperty] 
     private AddReminderBaseVM? addReminderViewModel;
+
+    public string? AlarmSoundPath {
+        get => App.AppSettings.AlarmSoundPath;
+        set => App.AppSettings.AlarmSoundPath = value;
+    }
     
     public bool CreateStartOnLogonTask {
         get => App.AppSettings.CreateStartOnLogonTask;

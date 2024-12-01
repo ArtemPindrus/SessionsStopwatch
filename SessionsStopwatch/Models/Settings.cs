@@ -7,7 +7,11 @@ using SessionsStopwatch.Models.SchedulerTasks;
 namespace SessionsStopwatch.Models;
 
 public partial class Settings : ObservableObject {
+    public const string DefaultAlarmSoundPath = "ClickingAlarm.mp3";
     private const string SettingsFileName = "settings.json";
+
+    [ObservableProperty] 
+    private string? alarmSoundPath;
     
     [ObservableProperty]
     private bool createStartOnLogonTask;
