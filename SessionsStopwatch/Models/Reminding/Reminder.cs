@@ -9,8 +9,6 @@ namespace SessionsStopwatch.Models.Reminding;
 [JsonDerivedType(typeof(IntervalReminder), "interval")]
 [JsonDerivedType(typeof(OneTimeDeleteReminder), "oneTimeAndDelete")]
 public abstract partial class Reminder : ObservableObject {
-    // TODO: play sound
-
     [ObservableProperty]
     private bool enabled;
     
