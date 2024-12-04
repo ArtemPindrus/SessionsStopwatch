@@ -109,7 +109,18 @@ public class RemindersManager {
     }
 
     private void LifetimeOnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e) {
+        DeleteAllOnExit();
         SerializeToDefaultFile();
+    }
+
+    private void DeleteAllOnExit() {
+        for (int i = 0; i < Reminders.Count; i++) {
+            Reminder reminder = Reminders[i];
+            if (reminder.DeleteOnExit) {
+                Reminders.RemoveAt(i);
+                i--;
+            }
+        }
     }
     
     private void StopwatchOnElapsedUpdated() {

@@ -4,8 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:SessionsStopwatch.ViewModels"
         mc:Ignorable="d" 
-        d:DesignWidth="150" d:DesignHeight="60"
-        Width="150" Height="60"
+        Width="170" Height="100"
         x:Class="SessionsStopwatch.Views.RemindWindow"
         x:DataType="viewModels:RemindWindowViewModel"
         
@@ -13,7 +12,7 @@
         CanResize="False"
         SystemDecorations="None"
         KeyDown="InputElement_OnKeyDown">
-        <Grid RowDefinitions="20,*">
+        <Grid RowDefinitions="20,40,*">
                 <Border Background="{StaticResource HeaderBrush}">
                         <StackPanel HorizontalAlignment="Right">
                                 <Button Theme="{StaticResource HeaderButton}"
@@ -21,10 +20,23 @@
                                         Command="{Binding CloseCommand}"/>
                         </StackPanel>
                 </Border>
-                <Border Grid.Row="1" Background="{StaticResource ContentBrush}">
+                <Border Grid.Row="1" 
+                        Background="{StaticResource ContentBrush}">
                         <TextBlock VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                 Text="{Binding ReminderText}"/>
+                </Border>
+                <Border Grid.Row="2"
+                        Padding="5"
+                        Background="{StaticResource ContentBrush}">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="20">
+                                <TextBox Width="82"
+                                        Text="{Binding DelayTextBox}"/>
+                                <Button Command="{Binding DelayCommand}">
+                                        Delay
+                                </Button>
+                        </StackPanel>
                 </Border>
         </Grid>
 </Window>

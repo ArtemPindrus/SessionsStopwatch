@@ -10,6 +10,9 @@ namespace SessionsStopwatch.Models.Reminding;
 [JsonDerivedType(typeof(OneTimeDeleteReminder), "oneTimeAndDelete")]
 public abstract partial class Reminder : ObservableObject {
     [ObservableProperty]
+    private bool deleteOnExit;
+    
+    [ObservableProperty]
     private bool enabled;
     
     [ObservableProperty]
