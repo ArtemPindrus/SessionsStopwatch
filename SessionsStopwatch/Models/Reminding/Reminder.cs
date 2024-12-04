@@ -7,6 +7,7 @@ namespace SessionsStopwatch.Models.Reminding;
 // TODO: describe process of adding new Reminder types.
 [JsonDerivedType(typeof(OneTimeReminder), "oneTime")]
 [JsonDerivedType(typeof(IntervalReminder), "interval")]
+[JsonDerivedType(typeof(OneTimeDeleteReminder), "oneTimeAndDelete")]
 public abstract partial class Reminder : ObservableObject {
     // TODO: play sound
 

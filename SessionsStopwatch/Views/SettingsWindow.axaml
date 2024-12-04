@@ -28,6 +28,9 @@
         <DataTemplate DataType="{x:Type reminderVMs:AddIntervalReminderVM}">
             <remindersViews:AddIntervalReminder/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type reminderVMs:AddOneTimeDeleteReminderVM}">
+            <remindersViews:AddOneTimeDeleteReminder/>
+        </DataTemplate>
     </Window.DataTemplates>
     
     <Grid RowDefinitions="20, *">

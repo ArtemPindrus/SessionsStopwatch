@@ -48,6 +48,7 @@ public partial class SettingsWindowViewModel : ViewModelBase {
         if (value == null) AddReminderViewModel = null;
         else if (value == typeof(OneTimeReminder)) AddReminderViewModel = new AddOneTimeReminderVM();
         else if (value == typeof(IntervalReminder)) AddReminderViewModel = new AddIntervalReminderVM();
+        else if (value == typeof(OneTimeDeleteReminder)) AddReminderViewModel = new AddOneTimeDeleteReminderVM();
         else throw new NotImplementedException();
         
         if (AddReminderViewModel != null) AddReminderViewModel.AddedReminder += OnAddedReminder;
