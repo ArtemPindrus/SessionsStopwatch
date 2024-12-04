@@ -1,7 +1,5 @@
-using System;
 using System.ComponentModel;
 using System.IO;
-using System.Net;
 using LibVLCSharp.Shared;
 
 namespace SessionsStopwatch.Models;
@@ -46,6 +44,7 @@ public static class SoundPlayer {
         }
 
         if (path != null) {
+            media?.Dispose();
             media = new(libVLC, path);
         }
 
