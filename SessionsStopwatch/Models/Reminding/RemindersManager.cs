@@ -84,7 +84,6 @@ public class RemindersManager {
     }
 
     public void RemoveReminder(Reminder reminder) {
-        Reminders.Remove(reminder);
         lock (collectionLock) {
             Reminders.Remove(reminder);
 
