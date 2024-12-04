@@ -5,18 +5,32 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 using Avalonia.Controls.ApplicationLifetimes;
 using SessionsStopwatch.Utilities;
 
 namespace SessionsStopwatch.Models.Reminding;
 
 public class RemindersManager {
+    private static readonly Lock collectionLock = new();
     private const string SerializedDataPath = "reminders.json";
+
+    private Stopwatch? stopwatch;
+    private ObservableCollection<Reminder> reminders;
     
     [JsonInclude]
-    public ObservableCollection<Reminder> Reminders { get; private set; }
-    
-    private Stopwatch? stopwatch;
+    public ObservableCollection<Reminder> Reminders {
+        get {
+            lock (collectionLock) {
+                return reminders;
+            }
+        }
+        private set {
+            lock (collectionLock) {
+                reminders = value;
+            }
+        }
+    }
 
     private Stopwatch Stopwatch {
         get {
@@ -58,19 +72,24 @@ public class RemindersManager {
     }
 
     public bool AddReminder(Reminder reminder) {
-        if (Reminders.Any(x => x.Equals(reminder))) return false;
+        lock (collectionLock) {
+            if (Reminders.Any(x => x.Equals(reminder))) return false;
         
-        Reminders.Add(reminder);
+            Reminders.Add(reminder);
         
-        SerializeToDefaultFile();
+            SerializeToDefaultFile();
+        }
         
         return true;
     }
 
     public void RemoveReminder(Reminder reminder) {
         Reminders.Remove(reminder);
-        
-        SerializeToDefaultFile();
+        lock (collectionLock) {
+            Reminders.Remove(reminder);
+
+            SerializeToDefaultFile();
+        }
     }
 
     public void SerializeToDefaultFile() {
@@ -95,11 +114,22 @@ public class RemindersManager {
     }
     
     private void StopwatchOnElapsedUpdated() {
-        foreach (var reminder in Reminders) {
-            if (!reminder.Enabled) return;
-            
-            if (reminder.CheckNeedsToRemind(Stopwatch.Elapsed)) {
-                reminder.Remind();
+        lock (collectionLock) {
+            int length = Reminders.Count;
+            for (int i = 0; i < Reminders.Count; i++) {
+                Reminder reminder = Reminders[i];
+                if (!reminder.Enabled) return;
+                
+                if (reminder.CheckNeedsToRemind(Stopwatch.Elapsed)) {
+                    reminder.Remind();
+
+                    // handle reminder deletion
+                    int newLength = Reminders.Count;
+                    if (length > newLength) {
+                        length = newLength;
+                        i--;
+                    }
+                }
             }
         }
     }
