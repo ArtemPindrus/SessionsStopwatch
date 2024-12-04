@@ -1,8 +1,10 @@
 ﻿using System;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ExCSS;
 using SessionsStopwatch.Models.Reminding;
+using SessionsStopwatch.Views.Reminders;
 
 namespace SessionsStopwatch.ViewModels.Reminders;
 
