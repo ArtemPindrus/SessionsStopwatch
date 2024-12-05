@@ -11,6 +11,9 @@ public partial class Settings : ObservableObject {
     private const string SettingsFileName = "settings.json";
 
     [ObservableProperty] 
+    private int alarmVolume = 100;
+
+    [ObservableProperty] 
     private string? alarmSoundPath;
     
     [ObservableProperty]
@@ -53,5 +56,9 @@ public partial class Settings : ObservableObject {
     partial void OnCreateRestartOnLogonTaskChanged(bool value) {
         if (value) TaskManager.Register<RestartOnLogonTask>();
         else TaskManager.Unregister<RestartOnLogonTask>();
+    }
+
+    partial void OnAlarmVolumeChanged(int value) {
+        SoundPlayer.ChangeVolume(value);
     }
 }

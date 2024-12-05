@@ -21,6 +21,11 @@ public partial class SettingsWindowViewModel : ViewModelBase {
     [ObservableProperty] 
     private AddReminderBaseVM? addReminderViewModel;
 
+    public int AlarmVolume {
+        get => App.AppSettings.AlarmVolume;
+        set => App.AppSettings.AlarmVolume = value;
+    }
+
     public string? AlarmSoundPath {
         get => App.AppSettings.AlarmSoundPath;
         set => App.AppSettings.AlarmSoundPath = value;

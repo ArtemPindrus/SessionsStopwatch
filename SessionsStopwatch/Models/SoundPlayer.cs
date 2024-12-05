@@ -16,7 +16,10 @@ public static class SoundPlayer {
         UpdateMedia();
         
         App.AppSettings.PropertyChanged += AppSettingsOnPropertyChanged;
+        mediaPlayer.Volume = App.AppSettings.AlarmVolume;
     }
+
+    public static void ChangeVolume(int volume) => mediaPlayer.Volume = volume;
 
     public static void PlayAlarmSound() {
         if (media == null) return;
