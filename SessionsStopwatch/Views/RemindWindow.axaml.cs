@@ -12,7 +12,7 @@ public partial class RemindWindow : Window {
         InitializeComponent();
         this.RegisterDragWindow(this);
         
-        SoundPlayer.PlayAlarmSound();
+        if (!Design.IsDesignMode) SoundPlayer.PlayAlarmSound();
     }
 
     private void InputElement_OnKeyDown(object? sender, KeyEventArgs e) {
