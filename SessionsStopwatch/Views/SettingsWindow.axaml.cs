@@ -23,22 +23,6 @@ public partial class SettingsWindow : Window {
         Type[] types = executingAssembly.GetTypes();
 
         InitializeReminderTypeSelector(types);
-        CheckDataTemplates(types);
-    }
-
-    private void CheckDataTemplates(Type[] assemblyTypes) {
-        Type baseType = typeof(AddReminderBaseVM);
-        
-        foreach (var type in assemblyTypes.Where(x => x.IsAssignableTo(baseType) && x != baseType)) {
-            // TODO: throw if not defined in XAML
-            if (DataTemplates.Any(x => ((DataTemplate)x).DataType == type)) {
-                
-            }
-            else {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error!", $"DataTemplate for {type} wasn't defined in {nameof(SettingsWindow)}.axaml!");
-                messageBox.ShowAsync();
-            }
-        }
     }
 
     private void InitializeReminderTypeSelector(Type[] assemblyTypes) {

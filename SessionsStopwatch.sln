@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionsStopwatch", "Sessio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestartStopwatchTask", "RestartStopwatchTask\RestartStopwatchTask.csproj", "{4697F494-801B-4FC6-9839-EF36479613F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionsStopwatch.Tests", "SessionsStopwatch.Tests\SessionsStopwatch.Tests.csproj", "{8BB79376-600D-4361-ACC5-83CED7B4EAE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{4697F494-801B-4FC6-9839-EF36479613F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4697F494-801B-4FC6-9839-EF36479613F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4697F494-801B-4FC6-9839-EF36479613F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BB79376-600D-4361-ACC5-83CED7B4EAE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BB79376-600D-4361-ACC5-83CED7B4EAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BB79376-600D-4361-ACC5-83CED7B4EAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BB79376-600D-4361-ACC5-83CED7B4EAE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
