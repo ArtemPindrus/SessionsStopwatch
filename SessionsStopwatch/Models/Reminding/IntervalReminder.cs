@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 using SessionsStopwatch.ViewModels;
+using SessionsStopwatch.ViewModels.Reminders;
 using SessionsStopwatch.Views;
 
 namespace SessionsStopwatch.Models.Reminding;
 
+[ReminderToViewModelBinding(typeof(AddIntervalReminderVM))]
 public class IntervalReminder : Reminder {
     [JsonIgnore]
     private int remindedCount;

@@ -2,9 +2,12 @@
 using System.Text.Json.Serialization;
 using SessionsStopwatch.Views;
 using SessionsStopwatch.ViewModels;
+using SessionsStopwatch.ViewModels.Reminders;
+using SessionsStopwatch.Views.Reminders;
 
 namespace SessionsStopwatch.Models.Reminding;
 
+[ReminderToViewModelBinding(typeof(AddOneTimeReminderVM))]
 public class OneTimeReminder : Reminder {
     private bool remindedOnce;
     

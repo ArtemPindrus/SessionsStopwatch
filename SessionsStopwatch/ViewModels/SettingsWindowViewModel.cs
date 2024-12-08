@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -51,10 +52,14 @@ public partial class SettingsWindowViewModel : ViewModelBase {
         if (AddReminderViewModel != null) AddReminderViewModel.AddedReminder -= OnAddedReminder;
 
         if (value == null) AddReminderViewModel = null;
-        else if (value == typeof(OneTimeReminder)) AddReminderViewModel = new AddOneTimeReminderVM();
-        else if (value == typeof(IntervalReminder)) AddReminderViewModel = new AddIntervalReminderVM();
-        else if (value == typeof(OneTimeDeleteReminder)) AddReminderViewModel = new AddOneTimeDeleteReminderVM();
-        else throw new NotImplementedException();
+        else {
+            var attribute = value.GetCustomAttribute(typeof(ReminderToViewModelBindingAttribute));
+
+            if (attribute is ReminderToViewModelBindingAttribute validAttribute) {
+                AddReminderViewModel = (AddReminderBaseVM)Activator.CreateInstance(validAttribute.ViewModel);
+            }
+            else throw new NotImplementedException();
+        }
         
         if (AddReminderViewModel != null) AddReminderViewModel.AddedReminder += OnAddedReminder;
     }
