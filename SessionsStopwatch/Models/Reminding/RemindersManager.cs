@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
+using System.Threading.Tasks;
 using Avalonia.Controls.ApplicationLifetimes;
 using SessionsStopwatch.Utilities;
 
@@ -92,7 +93,7 @@ public class RemindersManager {
     }
 
     public void SerializeToDefaultFile() {
-        string json = JsonSerializer.Serialize<RemindersManager>(this);
+        string json = JsonSerializer.Serialize(this);
         File.WriteAllText(SerializedDataPath, json);
     }
 
